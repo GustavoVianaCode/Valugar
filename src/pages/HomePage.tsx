@@ -13,13 +13,13 @@ const HeroSection = styled.section`
 `;
 
 const HeroContainer = styled.div`
-  max-width: 1440px; // Largura exata de 1440px conforme sua necessidade
+  max-width: 1200px; // Largura exata de 1440px conforme sua necessidade
   width: 100%;
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
-  justify-content: center;
-  gap: 300px;
+  justify-content: space-between; // Mudado de center para space-between
+  gap: 40px; // Reduzido de 300px para 40px
   align-items: center;
   height: 100%; // Garante que ocupe toda a altura do HeroSection
 `;
@@ -27,7 +27,7 @@ const HeroContainer = styled.div`
 // Para o conteúdo (texto e busca)
 const HeroContent = styled.div`
   color: white;
-  max-width: 500px;
+  max-width: 500px; // Voltando ao valor original para manter o alinhamento
   padding: 20px 0; // Adicionado padding vertical para espaçamento interno
 `;
 
@@ -60,47 +60,55 @@ const HeroImage = styled.div`
 const SearchBox = styled.div`
   background: white;
   border-radius: 10px;
-  padding: 15px;
-  max-width: 400px;
+  padding: 20px;
+  width: 500px; // Definindo uma largura fixa maior que antes
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 `;
 
 const TabsContainer = styled.div`
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 15px;
+  margin-bottom: 20px;
+  width: 100%; /* Garante que ocupe toda a largura */
 `;
 
 const Tab = styled.button<{ active?: boolean }>`
+  flex: 1; /* Faz cada botão ocupar o mesmo espaço */
   background: ${props => props.active ? '#0090C1' : 'transparent'};
   color: ${props => props.active ? 'white' : '#555'};
   border: none;
   border-radius: 20px;
-  padding: 6px 14px;
+  padding: 8px 14px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
   display: flex;
   align-items: center;
+  justify-content: center; /* Centraliza o conteúdo */
+  
+  &:hover {
+    background: ${props => props.active ? '#0090C1' : '#f0f0f0'};
+  }
 `;
 
 const SearchInput = styled.div`
   position: relative;
   display: flex;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 8px;
   overflow: hidden;
+  width: 100%; /* Garante que ocupe toda a largura */
 `;
 
 const Input = styled.input`
   flex: 1;
   border: none;
-  padding: 12px 15px;
-  font-size: 14px;
+  padding: 14px 18px;
+  font-size: 16px;
   outline: none;
 `;
 
 const SearchButton = styled.button`
-  width: 40px;
+  width: 60px;
   border: none;
   background: #0090C1;
   color: white;
@@ -108,6 +116,11 @@ const SearchButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background: #007aa9;
+  }
 `;
 
 const FeaturedSection = styled.section`
@@ -180,17 +193,38 @@ const HomePage = () => {
             <SearchBox>
               <TabsContainer>
                 <Tab active={activeTab === 'residencial'} onClick={() => setActiveTab('residencial')}>
-                  <span>Residencial <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWhvdXNlLWljb24gbHVjaWRlLWhvdXNlIj48cGF0aCBkPSJNMTUgMjF2LThhMSAxIDAgMCAwLTEtMWgtNGExIDEgMCAwIDAtMSAxdjgiLz48cGF0aCBkPSJNMyAxMGEyIDIgMCAwIDEgLjcwOS0xLjUyOGw3LTZhMiAyIDAgMCAxIDIuNTgyIDBsNyA2QTIgMiAwIDAgMSAyMSAxMHY5YTIgMiAwIDAgMS0yIDJINWEyIDIgMCAwIDEtMi0yeiIvPjwvc3ZnPg=="/></span>
+                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/>
+                      <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    </svg>
+                    <span style={{marginLeft: '8px'}}>Residencial</span>
+                  </div>
                 </Tab>
                 <Tab active={activeTab === 'comercial'} onClick={() => setActiveTab('comercial')}>
-                  <span>Comercial <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWJ1aWxkaW5nLWljb24gbHVjaWRlLWJ1aWxkaW5nIj48cGF0aCBkPSJNMTIgMTBoLjAxIi8+PHBhdGggZD0iTTEyIDE0aC4wMSIvPjxwYXRoIGQ9Ik0xMiA2aC4wMSIvPjxwYXRoIGQ9Ik0xNiAxMGguMDEiLz48cGF0aCBkPSJNMTYgMTRoLjAxIi8+PHBhdGggZD0iTTE2IDZoLjAxIi8+PHBhdGggZD0iTTggMTBoLjAxIi8+PHBhdGggZD0iTTggMTRoLjAxIi8+PHBhdGggZD0iTTggNmguMDEiLz48cGF0aCBkPSJNOSAyMnYtM2ExIDEgMCAwIDEgMS0xaDRhMSAxIDAgMCAxIDEgMXYzIi8+PHJlY3QgeD0iNCIgeT0iMiIgd2lkdGg9IjE2IiBoZWlnaHQ9IjIwIiByeD0iMiIvPjwvc3ZnPg=="/></span>
+                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 10h.01"/>
+                      <path d="M12 14h.01"/>
+                      <path d="M12 6h.01"/>
+                      <path d="M16 10h.01"/>
+                      <path d="M16 14h.01"/>
+                      <path d="M16 6h.01"/>
+                      <path d="M8 10h.01"/>
+                      <path d="M8 14h.01"/>
+                      <path d="M8 6h.01"/>
+                      <path d="M9 22v-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/>
+                      <rect x="4" y="2" width="16" height="20" rx="2"/>
+                    </svg>
+                    <span style={{marginLeft: '8px'}}>Comercial</span>
+                  </div>
                 </Tab>
               </TabsContainer>
               
               <SearchInput>
                 <Input placeholder="Cidade, bairro ou região" />
                 <SearchButton>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                   </svg>
                 </SearchButton>
