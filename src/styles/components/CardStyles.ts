@@ -14,36 +14,37 @@ export const PropertyTypeContainer = styled.div`
 `;
 
 export const PropertyTypeCard = styled.div<{ active?: boolean }>`
-  border: 2px solid ${props => props.active ? props.theme.colors.primary : props.theme.colors.border};
+  border: 2px solid ${props => props.active ? '#0090C1' : props.theme.colors.border};
   border-radius: ${props => props.theme.borderRadius.medium || props.theme.borderRadius.md || '8px'};
   padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  background-color: ${props => props.active ? props.theme.colors.primaryLight : props.theme.colors.background};
+  background-color: ${props => props.active ? '#0090C1' : props.theme.colors.background};
+  color: ${props => props.active ? 'white' : props.theme.colors.text};
   transition: all 0.3s ease;
   
   &:hover {
-    border-color: ${props => props.theme.colors.primary};
+    border-color: '#0090C1';
   }
 `;
 
-export const PropertyTypeIcon = styled.div`
+export const PropertyTypeIcon = styled.div<{ active?: boolean }>`
   font-size: 32px;
-  color: ${props => props.theme.colors.primary};
+  color: ${props => props.active ? 'white' : '#0090C1'};
   margin-bottom: 15px;
 `;
 
-export const PropertyTypeTitle = styled.h3`
+export const PropertyTypeTitle = styled.h3<{ active?: boolean }>`
   font-size: ${props => props.theme.fontSize?.large || '18px'};
-  color: ${props => props.theme.colors.text};
+  color: ${props => props.active ? 'white' : props.theme.colors.text};
   margin-bottom: 5px;
 `;
 
-export const PropertyTypeDescription = styled.p`
+export const PropertyTypeDescription = styled.p<{ active?: boolean }>`
   font-size: ${props => props.theme.fontSize?.medium || '14px'};
-  color: ${props => props.theme.colors.textLight};
+  color: ${props => props.active ? 'white' : props.theme.colors.textLight};
   text-align: center;
 `;
 
@@ -202,8 +203,9 @@ export const FeaturedChoice = styled.div<{ active?: boolean }>`
   align-items: center;
   padding: 15px;
   border-radius: ${props => props.theme.borderRadius.small || props.theme.borderRadius.sm || '8px'};
-  border: 1px solid ${props => props.active ? props.theme.colors.primary : props.theme.colors.border};
-  background-color: ${props => props.active ? props.theme.colors.primaryLight : props.theme.colors.background};
+  border: 1px solid ${props => props.active ? '#0090C1' : props.theme.colors.border};
+  background-color: ${props => props.active ? '#0090C1' : props.theme.colors.background};
+  color: ${props => props.active ? 'white' : props.theme.colors.text};
   cursor: pointer;
   width: 375px;
   transition: all 0.2s ease;
@@ -213,7 +215,7 @@ export const FeaturedChoice = styled.div<{ active?: boolean }>`
   }
   
   &:hover {
-    border-color: ${props => props.theme.colors.primary};
+    border-color: '#0090C1';
   }
 `;
 
@@ -222,7 +224,7 @@ export const ChoiceIcon = styled.div<{ isChecked?: boolean }>`
   justify-content: center;
   align-items: center;
   margin-right: 10px;
-  color: ${props => props.isChecked ? props.theme.colors.primary : props.theme.colors.textLight};
+  color: ${props => props.isChecked ? 'white' : props.theme.colors.textLight};
   font-size: 18px;
   width: 20px;
 `;

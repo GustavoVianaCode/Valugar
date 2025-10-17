@@ -28,8 +28,8 @@ type FormStep = 'tipo' | 'info' | 'localizacao' | 'fotos' | 'contato';
 const AnunciarImovelPage: React.FC = () => {
   // Estados para controlar as etapas e dados do formulário
   const [currentStep, setCurrentStep] = useState<FormStep>('tipo');
-  const [propertyType, setPropertyType] = useState<PropertyType>('residencial');
-  const [wantsFeatured, setWantsFeatured] = useState<boolean>(true);
+  const [propertyType, setPropertyType] = useState<PropertyType>(null);
+  const [wantsFeatured, setWantsFeatured] = useState<boolean>(false);
   const [residentialType, setResidentialType] = useState<ResidentialType>(null);
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');

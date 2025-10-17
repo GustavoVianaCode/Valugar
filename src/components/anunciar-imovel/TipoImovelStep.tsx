@@ -44,18 +44,18 @@ const TipoImovelStep: React.FC<TipoImovelStepProps> = ({
             active={propertyType === 'residencial'}
             onClick={() => setPropertyType('residencial')}
           >
-            <PropertyTypeIcon>🏠</PropertyTypeIcon>
-            <PropertyTypeTitle>Residencial</PropertyTypeTitle>
-            <PropertyTypeDescription>Ex: Casa, apartamento, kitnet...</PropertyTypeDescription>
+            <PropertyTypeIcon active={propertyType === 'residencial'}>🏠</PropertyTypeIcon>
+            <PropertyTypeTitle active={propertyType === 'residencial'}>Residencial</PropertyTypeTitle>
+            <PropertyTypeDescription active={propertyType === 'residencial'}>Ex: Casa, apartamento, kitnet...</PropertyTypeDescription>
           </PropertyTypeCard>
           
           <PropertyTypeCard 
             active={propertyType === 'comercial'}
             onClick={() => setPropertyType('comercial')}
           >
-            <PropertyTypeIcon>🏢</PropertyTypeIcon>
-            <PropertyTypeTitle>Comercial</PropertyTypeTitle>
-            <PropertyTypeDescription>Ex: Loja, escritório, galpão...</PropertyTypeDescription>
+            <PropertyTypeIcon active={propertyType === 'comercial'}>🏢</PropertyTypeIcon>
+            <PropertyTypeTitle active={propertyType === 'comercial'}>Comercial</PropertyTypeTitle>
+            <PropertyTypeDescription active={propertyType === 'comercial'}>Ex: Loja, escritório, galpão...</PropertyTypeDescription>
           </PropertyTypeCard>
         </PropertyTypeContainer>
       </ContentSection>
@@ -73,13 +73,10 @@ const TipoImovelStep: React.FC<TipoImovelStepProps> = ({
             active={wantsFeatured} 
             onClick={() => setWantsFeatured(true)}
           >
-            <Avatar>
-              <img src="https://via.placeholder.com/35" alt="Avatar" />
-            </Avatar>
             <ChoiceIcon isChecked={wantsFeatured}>
               {wantsFeatured ? '✓' : ''}
             </ChoiceIcon>
-            <ChoiceText>Sim, quero mais destaque pro meu anúncio</ChoiceText>
+            <ChoiceText style={{color: wantsFeatured ? 'white' : undefined}}>Sim, quero mais destaque pro meu anúncio</ChoiceText>
           </FeaturedChoice>
           
           <FeaturedChoice 
@@ -89,7 +86,7 @@ const TipoImovelStep: React.FC<TipoImovelStepProps> = ({
             <ChoiceIcon isChecked={!wantsFeatured}>
               {!wantsFeatured ? '✕' : ''}
             </ChoiceIcon>
-            <ChoiceText>Não quero destaque</ChoiceText>
+            <ChoiceText style={{color: !wantsFeatured ? 'white' : undefined}}>Não quero destaque</ChoiceText>
           </FeaturedChoice>
         </FeaturedChoicesContainer>
       </FeaturedOptionSection>
