@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import FeaturedProperties from '../components/FeaturedProperties';
 
 const HeroSection = styled.section`
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
                     url('/imagens/background.jpg');
   background-size: cover;
   background-position: center;
@@ -62,25 +62,25 @@ const HeroSubtitle = styled.h2`
 const SearchBox = styled.div`
   background: white;
   border-radius: 10px;
-  padding: 20px;
-  max-width: 700px;
+  padding: 25px 30px;
+  max-width: 900px;
   margin: 0 auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   
   @media (max-width: 768px) {
-    padding: 15px;
+    padding: 20px 15px;
   }
 `;
 
 const SearchForm = styled.form`
   display: grid;
-  grid-template-columns: 2fr 1.2fr 1fr auto;
-  gap: 15px;
+  grid-template-columns: 2.5fr 1.5fr 1.2fr auto;
+  gap: 20px;
   align-items: end;
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 15px;
   }
 `;
 
@@ -98,28 +98,29 @@ const Label = styled.label`
 `;
 
 const StyledInput = styled.input`
-  padding: 12px 14px;
+  padding: 14px 16px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 15px;
   outline: none;
   width: 100%;
   
   &:focus {
     border-color: #0090C1;
+    box-shadow: 0 0 0 3px rgba(0, 144, 193, 0.1);
   }
   
   &::placeholder {
     color: #999;
-    font-size: 13px;
+    font-size: 14px;
   }
 `;
 
 const StyledSelect = styled.select`
-  padding: 12px 14px;
+  padding: 14px 16px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 15px;
   outline: none;
   width: 100%;
   background: white;
@@ -127,6 +128,7 @@ const StyledSelect = styled.select`
   
   &:focus {
     border-color: #0090C1;
+    box-shadow: 0 0 0 3px rgba(0, 144, 193, 0.1);
   }
 `;
 
@@ -134,20 +136,27 @@ const SearchButton = styled.button`
   background: #0090C1;
   color: white;
   border: none;
-  border-radius: 6px;
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: 8px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   white-space: nowrap;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  min-height: 48px;
   
   &:hover {
     background: #007aa9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 144, 193, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
   
   svg {
@@ -171,10 +180,10 @@ const FeaturedSection = styled.section`
 
 const SectionTitle = styled.h2`
   text-align: left;
-  font-size: 22px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 30px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 35px;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
@@ -182,7 +191,7 @@ const SectionTitle = styled.h2`
   
   @media (max-width: 768px) {
     font-size: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
 `;
 
@@ -214,33 +223,41 @@ const CategoryGrid = styled.div`
 `;
 
 const CategoryCard = styled.button`
-  background: #f8f9fa;
-  border: none;
+  background: white;
+  border: 2px solid #f0f0f0;
   border-radius: 12px;
-  padding: 24px 16px;
+  padding: 28px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s;
   text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   
   &:hover {
     background: #e6f7fc;
-    transform: translateY(-2px);
+    border-color: #0090C1;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 144, 193, 0.15);
   }
   
   span {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     color: #333;
   }
 `;
 
 const CategoryIcon = styled.div`
-  font-size: 32px;
+  font-size: 36px;
   color: #0090C1;
+  transition: transform 0.3s;
+  
+  ${CategoryCard}:hover & {
+    transform: scale(1.1);
+  }
 `;
 
 const ServicesSection = styled.section`
@@ -270,13 +287,25 @@ const ServicesGrid = styled.div`
 `;
 
 const ServiceCard = styled.div<{ featured?: boolean }>`
-  background: ${props => props.featured ? '#0090C1' : '#f8f9fa'};
+  background: ${props => props.featured ? '#0090C1' : 'white'};
   color: ${props => props.featured ? 'white' : '#333'};
-  border-radius: 12px;
-  padding: 32px 24px;
+  border: ${props => props.featured ? 'none' : '2px solid #f0f0f0'};
+  border-radius: 16px;
+  padding: 36px 28px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  box-shadow: ${props => props.featured 
+    ? '0 8px 24px rgba(0, 144, 193, 0.25)' 
+    : '0 2px 8px rgba(0,0,0,0.08)'};
+  transition: all 0.3s;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: ${props => props.featured 
+      ? '0 12px 32px rgba(0, 144, 193, 0.35)' 
+      : '0 8px 16px rgba(0,0,0,0.12)'};
+  }
   
   ${props => props.featured && `
     grid-row: span 2;
@@ -287,14 +316,14 @@ const ServiceCard = styled.div<{ featured?: boolean }>`
   `}
   
   h3 {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 19px;
+    font-weight: 700;
     margin: 0;
     line-height: 1.4;
   }
   
   p {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.6;
     margin: 0;
     opacity: ${props => props.featured ? '0.95' : '0.8'};
@@ -304,16 +333,17 @@ const ServiceCard = styled.div<{ featured?: boolean }>`
     background: ${props => props.featured ? '#FFD700' : '#0090C1'};
     color: ${props => props.featured ? '#333' : 'white'};
     border: none;
-    border-radius: 6px;
-    padding: 12px 20px;
-    font-size: 14px;
-    font-weight: 500;
+    border-radius: 8px;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
     margin-top: auto;
-    transition: opacity 0.2s;
+    transition: all 0.2s;
     
     &:hover {
       opacity: 0.9;
+      transform: translateY(-2px);
     }
   }
 `;
