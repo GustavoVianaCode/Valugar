@@ -42,7 +42,7 @@ const AnunciarImovelPage: React.FC = () => {
   const [rooms, setRooms] = useState<number>(1);
   const [area, setArea] = useState<string>('');
   const [rent, setRent] = useState<string>('');
-  const [additionalCosts, setAdditionalCosts] = useState<string>('');
+  const [additionalCosts, setAdditionalCosts] = useState<boolean>(false);
   
   // Informações adicionais (apenas anúncio completo)
   const [doesNotPayWater, setDoesNotPayWater] = useState<boolean>(false);
@@ -69,10 +69,12 @@ const AnunciarImovelPage: React.FC = () => {
   const [complement, setComplement] = useState<string>('');
   const [neighborhood, setNeighborhood] = useState<string>('');
   const [city, setCity] = useState<string>('');
+  const [state, setState] = useState<string>('');
   
   // Etapa 4 - Fotos
   const [photos, setPhotos] = useState<File[]>([]);
   const [video, setVideo] = useState<File | null>(null);
+  const [wantsFeatured, setWantsFeatured] = useState<boolean>(false);
 
   // Função para navegar para a próxima etapa
   const nextStep = () => {
@@ -194,7 +196,7 @@ const AnunciarImovelPage: React.FC = () => {
           onClick={handleSubmit}
           disabled={photos.length === 0}
         >
-          Continuar
+          Finalizar
         </FinalizeButton>
       );
     }
@@ -234,30 +236,23 @@ const AnunciarImovelPage: React.FC = () => {
       case 'info':
         return (
           <InfoBasicasStep 
-            shortTitle={shortTitle}
-            setShortTitle={setShortTitle}
-            detailedDescription={detailedDescription}
-            setDetailedDescription={setDetailedDescription}
+            title={shortTitle}
+            setTitle={setShortTitle}
+            description={detailedDescription}
+            setDescription={setDetailedDescription}
             residentialType={residentialType}
             setResidentialType={setResidentialType}
-            commercialType={commercialType}
-            setCommercialType={setCommercialType}
             bedrooms={bedrooms}
             setBedrooms={setBedrooms}
             bathrooms={bathrooms}
             setBathrooms={setBathrooms}
-            rooms={rooms}
-            setRooms={setRooms}
             area={area}
             setArea={setArea}
             rent={rent}
             setRent={setRent}
             additionalCosts={additionalCosts}
             setAdditionalCosts={setAdditionalCosts}
-            adFormat={adFormat}
-            propertyType={propertyType}
-            doesNotPayWater={doesNotPayWater}
-            setDoesNotPayWater={setDoesNotPayWater}
+            wantsFeatured={wantsFeatured}
             hasGarage={hasGarage}
             setHasGarage={setHasGarage}
             acceptsPets={acceptsPets}
@@ -268,30 +263,18 @@ const AnunciarImovelPage: React.FC = () => {
             setHasCeramicFloor={setHasCeramicFloor}
             hasPool={hasPool}
             setHasPool={setHasPool}
-            hasYard={hasYard}
-            setHasYard={setHasYard}
             hasSolarPanel={hasSolarPanel}
             setHasSolarPanel={setHasSolarPanel}
-            hasOwnParking={hasOwnParking}
-            setHasOwnParking={setHasOwnParking}
-            isAccessible={isAccessible}
-            setIsAccessible={setIsAccessible}
-            hasAirConditioning={hasAirConditioning}
-            setHasAirConditioning={setHasAirConditioning}
-            hasChildArea={hasChildArea}
-            setHasChildArea={setHasChildArea}
-            hasKitchen={hasKitchen}
-            setHasKitchen={setHasKitchen}
-            hasWarehouse={hasWarehouse}
-            setHasWarehouse={setHasWarehouse}
           />
         );
         
       case 'localizacao':
         return (
           <LocalizacaoStep 
-            cep={cep}
-            setCep={setCep}
+            state={state}
+            setState={setState}
+            city={city}
+            setCity={setCity}
             street={street}
             setStreet={setStreet}
             number={number}
@@ -300,22 +283,19 @@ const AnunciarImovelPage: React.FC = () => {
             setComplement={setComplement}
             neighborhood={neighborhood}
             setNeighborhood={setNeighborhood}
-            city={city}
-            setCity={setCity}
           />
         );
         
       case 'fotos':
         return (
-          <FotosStep 
+          <FotosStep
+            wantsFeatured={wantsFeatured}
             photos={photos}
             setPhotos={setPhotos}
             video={video}
             setVideo={setVideo}
           />
-        );
-        
-      default:
+        );      default:
         return null;
     }
   };

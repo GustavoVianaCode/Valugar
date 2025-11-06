@@ -9,10 +9,10 @@ import {
 } from '../../styles/components/StepStyles';
 
 interface StepIndicatorProps {
-  currentStep: 'tipo' | 'info' | 'localizacao' | 'fotos' | 'contato';
-  navigateToStep: (step: 'tipo' | 'info' | 'localizacao' | 'fotos' | 'contato') => void;
-  canNavigateToStep: (step: 'tipo' | 'info' | 'localizacao' | 'fotos' | 'contato') => boolean;
-  isStepCompleted: (step: 'tipo' | 'info' | 'localizacao' | 'fotos' | 'contato') => boolean;
+  currentStep: 'tipo' | 'info' | 'localizacao' | 'fotos';
+  navigateToStep: (step: 'tipo' | 'info' | 'localizacao' | 'fotos') => void;
+  canNavigateToStep: (step: 'tipo' | 'info' | 'localizacao' | 'fotos') => boolean;
+  isStepCompleted: (step: 'tipo' | 'info' | 'localizacao' | 'fotos') => boolean;
 }
 
 const StepIndicator: React.FC<StepIndicatorProps> = ({
@@ -90,24 +90,7 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
           <i className="fas fa-camera">📷</i>
         </StepIcon>
         <StepLabel>Fotos</StepLabel>
-        <StepDescription>Escolha se é residencial ou comercial</StepDescription>
-      </Step>
-      
-      <Step 
-        active={currentStep === 'contato'} 
-        completed={isStepCompleted('contato')}
-        clickable={canNavigateToStep('contato')}
-        onClick={() => canNavigateToStep('contato') && navigateToStep('contato')}
-      >
-        <StepIcon 
-          active={currentStep === 'contato'} 
-          completed={isStepCompleted('contato')}
-          clickable={canNavigateToStep('contato')}
-        >
-          <i className="fas fa-user">👤</i>
-        </StepIcon>
-        <StepLabel>Contato</StepLabel>
-        <StepDescription>Escolha se é residencial ou comercial</StepDescription>
+        <StepDescription>Adicione fotos do imóvel</StepDescription>
       </Step>
     </StepsContainer>
   );
