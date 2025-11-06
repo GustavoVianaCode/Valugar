@@ -2,45 +2,77 @@ import styled from 'styled-components';
 import FeaturedProperties from '../components/FeaturedProperties';
 
 const HeroSection = styled.section`
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                    url('/imagens/background.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 80px 0;
-  min-height: 500px;
+  position: relative;
+  padding: 180px 0 140px;
+  min-height: 600px;
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin-top: -80px;
+  background: white;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1350px;
+    height: 100%;
+    background-image:
+      linear-gradient(90deg, rgba(4,25,48,0.68) 0%, rgba(4,25,48,0.28) 30%, rgba(0,0,0,0.12) 100%),
+      url('/imagens/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
   
   @media (max-width: 768px) {
-    padding: 60px 0;
-    min-height: 400px;
+    padding: 120px 0 100px;
+    min-height: 500px;
+    margin-top: -70px;
   }
 `;
 
 const HeroContainer = styled.div`
-  max-width: 1200px;
+  max-width: 1350px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
+  position: relative;
+  z-index: 1;
   
   @media (max-width: 768px) {
-    padding: 0 15px;
+    padding: 0 20px;
   }
 `;
 
 const HeroContent = styled.div`
   color: white;
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
+  text-align: left;
+  max-width: 700px;
+  margin: 0;
+  
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 `;
 
 const HeroTitle = styled.h1`
-  font-size: 48px;
+  font-size: 56px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin: 0 0 8px 0;
+  line-height: 1.1;
+  color: white;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-family: 'Poppins', sans-serif;
+  
+  @media (max-width: 1024px) {
+    font-size: 44px;
+  }
   
   @media (max-width: 768px) {
     font-size: 32px;
@@ -48,39 +80,48 @@ const HeroTitle = styled.h1`
 `;
 
 const HeroSubtitle = styled.h2`
-  font-size: 48px;
+  font-size: 56px;
   color: #FFD700;
   font-weight: 700;
-  margin-bottom: 40px;
+  margin: 0 0 30px 0;
+  line-height: 1.1;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-family: 'Poppins', sans-serif;
+  
+  @media (max-width: 1024px) {
+    font-size: 44px;
+  }
   
   @media (max-width: 768px) {
     font-size: 32px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 `;
 
 const SearchBox = styled.div`
   background: white;
-  border-radius: 10px;
-  padding: 25px 30px;
-  max-width: 900px;
-  margin: 0 auto;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  border-radius: 12px;
+  padding: 24px 28px;
+  width: 100%;
+  max-width: 1000px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
   
   @media (max-width: 768px) {
-    padding: 20px 15px;
+    border-radius: 12px;
+    padding: 20px;
   }
 `;
 
 const SearchForm = styled.form`
   display: grid;
-  grid-template-columns: 2.5fr 1.5fr 1.2fr auto;
-  gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 16px;
   align-items: end;
+  width: 100%;
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 14px;
   }
 `;
 
@@ -88,46 +129,58 @@ const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Label = styled.label`
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   color: #333;
-  text-align: left;
+  font-family: 'Poppins', sans-serif;
 `;
 
 const StyledInput = styled.input`
-  padding: 14px 16px;
-  border: 1px solid #ddd;
+  height: 46px;
+  padding: 12px 16px;
   border-radius: 6px;
-  font-size: 15px;
+  border: 1px solid #ddd;
+  background: #f8f9fa;
+  font-size: 14px;
   outline: none;
   width: 100%;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s;
   
   &:focus {
     border-color: #0090C1;
+    background: white;
     box-shadow: 0 0 0 3px rgba(0, 144, 193, 0.1);
   }
   
   &::placeholder {
     color: #999;
-    font-size: 14px;
   }
 `;
 
 const StyledSelect = styled.select`
-  padding: 14px 16px;
-  border: 1px solid #ddd;
+  height: 46px;
+  padding: 12px 16px;
   border-radius: 6px;
-  font-size: 15px;
+  border: 1px solid #ddd;
+  background: #f8f9fa;
+  font-size: 14px;
   outline: none;
   width: 100%;
-  background: white;
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
+  transition: all 0.2s;
   
   &:focus {
     border-color: #0090C1;
+    background: white;
     box-shadow: 0 0 0 3px rgba(0, 144, 193, 0.1);
   }
 `;
@@ -136,23 +189,31 @@ const SearchButton = styled.button`
   background: #0090C1;
   color: white;
   border: none;
-  border-radius: 8px;
-  padding: 14px 28px;
-  font-size: 15px;
+  border-radius: 6px;
+  padding: 0 28px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  height: 46px;
+  transition: all 0.2s ease;
   white-space: nowrap;
-  transition: all 0.2s;
-  min-height: 48px;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   
   &:hover {
-    background: #007aa9;
+    background: #007aa3;
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 144, 193, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 144, 193, 0.3);
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
   }
   
   &:active {
@@ -163,18 +224,14 @@ const SearchButton = styled.button`
     width: 18px;
     height: 18px;
   }
-  
-  @media (max-width: 768px) {
-    width: 100%;
-  }
 `;
 
 const FeaturedSection = styled.section`
-  padding: 60px 0;
+  padding: 100px 0 60px;
   background: white;
   
   @media (max-width: 768px) {
-    padding: 40px 0;
+    padding: 60px 0 40px;
   }
 `;
 
@@ -184,14 +241,15 @@ const SectionTitle = styled.h2`
   font-weight: 700;
   color: #2c3e50;
   margin-bottom: 35px;
-  max-width: 1200px;
+  max-width: 1350px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 20px;
+  padding: 0 40px;
   
   @media (max-width: 768px) {
     font-size: 20px;
     margin-bottom: 25px;
+    padding: 0 20px;
   }
 `;
 
@@ -208,9 +266,9 @@ const CategoryGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 20px;
-  max-width: 1200px;
+  max-width: 1350px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
   
   @media (max-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
@@ -219,44 +277,51 @@ const CategoryGrid = styled.div`
   @media (max-width: 640px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
+    padding: 0 20px;
   }
 `;
 
 const CategoryCard = styled.button`
   background: white;
-  border: 2px solid #f0f0f0;
+  border: 1px solid var(--card-border);
   border-radius: 12px;
-  padding: 28px 20px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s;
   text-decoration: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  min-height: 110px;
   
   &:hover {
-    background: #e6f7fc;
-    border-color: #0090C1;
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 144, 193, 0.15);
+    transform: translateY(-6px);
+    border-color: var(--primary);
+    background: #f9feff;
   }
   
   span {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
-    color: #333;
+    color: var(--text);
   }
 `;
 
-const CategoryIcon = styled.div`
-  font-size: 36px;
-  color: #0090C1;
-  transition: transform 0.3s;
+const IconCircle = styled.div`
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #eaf7fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
   
-  ${CategoryCard}:hover & {
-    transform: scale(1.1);
+  svg {
+    width: 28px;
+    height: 28px;
+    color: var(--primary);
   }
 `;
 
@@ -271,15 +336,25 @@ const ServicesSection = styled.section`
 
 const ServicesGrid = styled.div`
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
-  max-width: 1200px;
+  max-width: 1350px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
   
   @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
+  
+  @media (max-width: 640px) {
+    padding: 0 20px;
+  }
+`;
+
+const InfoCardsGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
   
   @media (max-width: 640px) {
     grid-template-columns: 1fr;
@@ -291,14 +366,15 @@ const ServiceCard = styled.div<{ featured?: boolean }>`
   color: ${props => props.featured ? 'white' : '#333'};
   border: ${props => props.featured ? 'none' : '2px solid #f0f0f0'};
   border-radius: 16px;
-  padding: 36px 28px;
+  padding: ${props => props.featured ? '40px 32px' : '24px 20px'};
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: ${props => props.featured ? '20px' : '12px'};
   box-shadow: ${props => props.featured 
     ? '0 8px 24px rgba(0, 144, 193, 0.25)' 
     : '0 2px 8px rgba(0,0,0,0.08)'};
   transition: all 0.3s;
+  min-height: ${props => props.featured ? '100%' : 'auto'};
   
   &:hover {
     transform: translateY(-4px);
@@ -307,26 +383,20 @@ const ServiceCard = styled.div<{ featured?: boolean }>`
       : '0 8px 16px rgba(0,0,0,0.12)'};
   }
   
-  ${props => props.featured && `
-    grid-row: span 2;
-    
-    @media (max-width: 1024px) {
-      grid-row: span 1;
-    }
-  `}
-  
   h3 {
-    font-size: 19px;
+    font-size: ${props => props.featured ? '22px' : '16px'};
     font-weight: 700;
     margin: 0;
     line-height: 1.4;
+    color: ${props => props.featured ? 'white' : '#0090C1'};
   }
   
   p {
-    font-size: 15px;
+    font-size: ${props => props.featured ? '15px' : '14px'};
     line-height: 1.6;
     margin: 0;
     opacity: ${props => props.featured ? '0.95' : '0.8'};
+    flex: 1;
   }
   
   button {
@@ -348,8 +418,9 @@ const ServiceCard = styled.div<{ featured?: boolean }>`
   }
 `;
 
-const ServiceIcon = styled.div`
-  font-size: 40px;
+const ServiceIcon = styled.div<{ featured?: boolean }>`
+  font-size: ${props => props.featured ? '52px' : '40px'};
+  color: ${props => props.featured ? 'white' : '#0090C1'};
 `;
 
 const HomePage = () => {
@@ -415,27 +486,57 @@ const HomePage = () => {
         <SectionTitle>Busque por categorias</SectionTitle>
         <CategoryGrid>
           <CategoryCard>
-            <CategoryIcon>🏠</CategoryIcon>
+            <IconCircle>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+            </IconCircle>
             <span>Casa</span>
           </CategoryCard>
+          
           <CategoryCard>
-            <CategoryIcon>🏢</CategoryIcon>
+            <IconCircle>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+              </svg>
+            </IconCircle>
             <span>Apartamento</span>
           </CategoryCard>
+          
           <CategoryCard>
-            <CategoryIcon>🚪</CategoryIcon>
+            <IconCircle>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21 9.02c0 1.09-.89 1.98-1.98 1.98H4.98C3.89 11 3 10.11 3 9.02H1c0 1.66 1.34 3 3 3h0.02c.27 1.11 1.24 1.93 2.39 1.93H7v5c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2v-5h0.59c1.15 0 2.12-.82 2.39-1.93H20c1.66 0 3-1.34 3-3h-2z"/>
+                <path d="M18 4H6v5h12V4zm-5 12h-2v-2h2v2z"/>
+              </svg>
+            </IconCircle>
             <span>Kitnet</span>
           </CategoryCard>
+          
           <CategoryCard>
-            <CategoryIcon>🛏️</CategoryIcon>
+            <IconCircle>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 9V7c0-1.1-.9-2-2-2h-3c0-1.66-1.34-3-3-3S9 3.34 9 5H6c-1.1 0-2 .9-2 2v2c-1.66 0-3 1.34-3 3s1.34 3 3 3v5c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-5c1.66 0 3-1.34 3-3s-1.34-3-3-3zm-2 0h-5V7h5v2zm-6-4c.55 0 1 .45 1 1h-2c0-.55.45-1 1-1zM9 9H4V7h5v2zm9 11H6v-6h12v6z"/>
+              </svg>
+            </IconCircle>
             <span>Quarto</span>
           </CategoryCard>
+          
           <CategoryCard>
-            <CategoryIcon>🏡</CategoryIcon>
+            <IconCircle>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 9.3V4h-3v2.6L12 3 2 12h3v8h5v-6h4v6h5v-8h3l-3-2.7zM10 10c0-1.1.9-2 2-2s2 .9 2 2h-4z"/>
+              </svg>
+            </IconCircle>
             <span>Sítio / Chácara</span>
           </CategoryCard>
+          
           <CategoryCard>
-            <CategoryIcon>🏪</CategoryIcon>
+            <IconCircle>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21.9 8.89l-1.05-4.37c-.22-.9-1-1.52-1.91-1.52H5.05c-.9 0-1.69.63-1.9 1.52L2.1 8.89c-.24 1.02-.02 2.06.62 2.88.08.11.19.19.28.29V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6.94c.09-.09.2-.18.28-.28.64-.82.87-1.87.62-2.89zM18.91 4.99l1.05 4.37c.1.42.01.84-.25 1.17-.14.18-.44.47-.94.47-.61 0-1.14-.49-1.21-1.14L16.98 5l1.93-.01zM13 5h1.96l.54 4.52c.05.39-.07.78-.33 1.07-.22.26-.54.41-.95.41-.67 0-1.22-.59-1.22-1.31V5zM8.49 9.52L9.04 5H11v4.69c0 .72-.55 1.31-1.29 1.31-.34 0-.65-.15-.89-.41-.25-.29-.37-.68-.33-1.07zm-4.45-.16L5.05 5h1.97l-.58 4.86c-.08.65-.6 1.14-1.21 1.14-.49 0-.8-.29-.93-.47-.27-.32-.36-.75-.26-1.17zM5 19v-6.03c.08.01.15.03.23.03.87 0 1.66-.36 2.24-.95.6.6 1.4.95 2.31.95.87 0 1.65-.36 2.23-.93.59.57 1.39.93 2.29.93.84 0 1.64-.35 2.24-.95.58.59 1.37.95 2.24.95.08 0 .15-.02.23-.03V19H5z"/>
+              </svg>
+            </IconCircle>
             <span>Comercial</span>
           </CategoryCard>
         </CategoryGrid>
@@ -443,47 +544,42 @@ const HomePage = () => {
 
       <ServicesSection>
         <ServicesGrid>
+          {/* Card azul grande */}
           <ServiceCard featured>
-            <ServiceIcon>🏠</ServiceIcon>
-            <h3>Anuncie rápido, anuncie sem complicação</h3>
+            <ServiceIcon featured>🏠</ServiceIcon>
+            <h3>Anuncie rápido, anuncie sem complicação.</h3>
             <p>
-              Queremos facilitar para anunciar imóveis nossos serviços básicos 
-              facilitam acesso a compradores
+              Encontre o inquilino perfeito em tempo recorde! Anuncie agora GRÁTIS e receba propostas imediatas.
             </p>
             <button>Anunciar meu imóvel</button>
           </ServiceCard>
           
-          <ServiceCard>
-            <ServiceIcon>🚀</ServiceIcon>
-            <h3>Novo negócio?</h3>
-            <p>
-              Encontre o lugar ideal para o seu negócio na sua região
-            </p>
-          </ServiceCard>
-          
-          <ServiceCard>
-            <ServiceIcon>👨‍👩‍👧‍👦</ServiceIcon>
-            <h3>A família cresceu?</h3>
-            <p>
-              Busque imóveis residenciais que possam abrigar sua família
-            </p>
-          </ServiceCard>
-          
-          <ServiceCard>
-            <ServiceIcon>💬</ServiceIcon>
-            <h3>Entre em contato</h3>
-            <p>
-              Nossa equipe está disponível para te ajudar 24h por dia!
-            </p>
-          </ServiceCard>
-          
-          <ServiceCard>
-            <ServiceIcon>👥</ServiceIcon>
-            <h3>Quem somos</h3>
-            <p>
-              Somos especialistas em imóveis na região do Vale do Jaguaribe
-            </p>
-          </ServiceCard>
+          {/* Grid 2x2 de cards informativos */}
+          <InfoCardsGrid>
+            <ServiceCard>
+              <ServiceIcon>🚀</ServiceIcon>
+              <h3>Novo negócio?</h3>
+              <p>Encontre o aluguel ideal para essa nova etapa da sua vida</p>
+            </ServiceCard>
+            
+            <ServiceCard>
+              <ServiceIcon>👨‍👩‍👧‍👦</ServiceIcon>
+              <h3>A família cresceu?</h3>
+              <p>Busque a residência ideal para sua família no Valugar</p>
+            </ServiceCard>
+            
+            <ServiceCard>
+              <ServiceIcon>💬</ServiceIcon>
+              <h3>Entre em contato</h3>
+              <p>Nossa equipe está disponível para te atender 24h por dia!</p>
+            </ServiceCard>
+            
+            <ServiceCard>
+              <ServiceIcon>👥</ServiceIcon>
+              <h3>Quem somos</h3>
+              <p>A Valugar surge como uma forma de facilitar a vida daqueles que buscam im...</p>
+            </ServiceCard>
+          </InfoCardsGrid>
         </ServicesGrid>
       </ServicesSection>
     </>

@@ -1,120 +1,165 @@
-import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const StyledFooter = styled.footer`
-  background-color: #0090C1;
-  color: white;
-  padding: 40px 0 0;
+  background: #f8f9fa;
+  padding: 60px 0 30px;
+  margin-top: 80px;
+  border-top: 1px solid #e5e7eb;
 `;
 
 const FooterContainer = styled.div`
-  max-width: 1200px;
+  max-width: 1350px;
   margin: 0 auto;
-  padding: 0 20px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
+  padding: 0 40px;
   
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+  @media (max-width: 640px) {
+    padding: 0 20px;
+  }
+`;
+
+const FooterContent = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
   }
   
-  @media (max-width: 480px) {
+  @media (max-width: 640px) {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
 `;
 
 const FooterColumn = styled.div`
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 const FooterLogo = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
-  font-size: 22px;
-  font-weight: 600;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0090C1;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 10px;
   
-  img {
-    height: 38px;
-    margin-right: 10px;
+  svg {
+    width: 32px;
+    height: 32px;
   }
 `;
 
 const FooterText = styled.p`
+  color: #6b7280;
   font-size: 14px;
   line-height: 1.6;
-  opacity: 0.8;
+  margin: 0;
 `;
 
 const FooterTitle = styled.h3`
   font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 15px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 20px 0;
+  font-family: 'Poppins', sans-serif;
+`;
+
+const FooterLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
 const FooterLink = styled(Link)`
-  display: block;
-  color: white;
+  color: #6b7280;
   text-decoration: none;
   font-size: 14px;
-  margin-bottom: 8px;
-  opacity: 0.8;
+  transition: color 0.2s;
   
   &:hover {
-    opacity: 1;
+    color: #0090C1;
+  }
+`;
+
+const ContactInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #6b7280;
+  font-size: 14px;
+  
+  p {
+    margin: 0;
+    line-height: 1.6;
   }
 `;
 
 const Copyright = styled.div`
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
   text-align: center;
-  padding: 15px 0;
-  margin-top: 20px;
-  font-size: 12px;
-  opacity: 0.7;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #9ca3af;
+  font-size: 13px;
 `;
 
 const Footer = () => {
   return (
     <StyledFooter>
       <FooterContainer>
-        <FooterColumn>
-          <FooterLogo>
-            <img src="/imagens/valugar-logo.png" alt="Valugar" />
-          </FooterLogo>
-          <FooterText>
-            Encontre seu imóvel ideal para alugar ou comprar nas principais cidades do Vale do Jaguaribe.
-          </FooterText>
-        </FooterColumn>
+        <FooterContent>
+          <FooterColumn>
+            <FooterLogo>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+              Valugar
+            </FooterLogo>
+            <FooterText>
+              Sua plataforma completa para locação de imóveis no Vale do Jaguaribe.
+            </FooterText>
+          </FooterColumn>
+          
+          <FooterColumn>
+            <FooterTitle>Acesso Rápido</FooterTitle>
+            <FooterLinks>
+              <FooterLink to="/buscar">Alugar Imóvel</FooterLink>
+              <FooterLink to="/anunciar">Anunciar Imóvel</FooterLink>
+              <FooterLink to="/sobre">Sobre nós</FooterLink>
+              <FooterLink to="/contato">Entre em contato</FooterLink>
+            </FooterLinks>
+          </FooterColumn>
+          
+          <FooterColumn>
+            <FooterTitle>Categorias</FooterTitle>
+            <FooterLinks>
+              <FooterLink to="/buscar?tipo=casa">Imóveis residenciais</FooterLink>
+              <FooterLink to="/buscar?tipo=comercial">Imóveis comerciais</FooterLink>
+              <FooterLink to="/buscar?destaque=true">Destaques</FooterLink>
+            </FooterLinks>
+          </FooterColumn>
+          
+          <FooterColumn>
+            <FooterTitle>Contato</FooterTitle>
+            <ContactInfo>
+              <p>Rua ABC, 123</p>
+              <p>Tabuleiro do Norte, CE</p>
+              <p>email@valugar.com</p>
+            </ContactInfo>
+          </FooterColumn>
+        </FooterContent>
         
-        <FooterColumn>
-          <FooterTitle>Acesso Rápido</FooterTitle>
-          <FooterLink to="/buscar">Alugar imóvel</FooterLink>
-          <FooterLink to="/buscar">Comprar imóvel</FooterLink>
-          <FooterLink to="/anunciar">Anunciar</FooterLink>
-          <FooterLink to="/sobre">Sobre nós</FooterLink>
-        </FooterColumn>
-        
-        <FooterColumn>
-          <FooterTitle>Categorias</FooterTitle>
-          <FooterLink to="/buscar?cat=residencial">Imóveis residenciais</FooterLink>
-          <FooterLink to="/buscar?cat=comercial">Imóveis comerciais</FooterLink>
-          <FooterLink to="/destaque">Destaques</FooterLink>
-        </FooterColumn>
-        
-        <FooterColumn>
-          <FooterTitle>Contato</FooterTitle>
-          <FooterText>Rua ABC, 123</FooterText>
-          <FooterText>Tabuleiro do Norte, CE</FooterText>
-          <FooterText>email@valugar.com</FooterText>
-        </FooterColumn>
+        <Copyright>
+          © 2025 Valugar. Todos os direitos reservados.
+        </Copyright>
       </FooterContainer>
-      
-      <Copyright>
-        © 2025 Valugar. Todos os direitos reservados.
-      </Copyright>
     </StyledFooter>
   );
 };

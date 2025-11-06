@@ -1,10 +1,17 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
   :root {
+    --primary: #0090C1;
+    --primary-dark: #007aa9;
+    --accent: #FFD700;
+    --muted: #f5f8fa;
+    --text: #2c3e50;
+    --card-border: #eef2f4;
     --primary-color: #2563eb;
     --primary-light: #3b82f6;
-    --primary-dark: #1d4ed8;
     --secondary-color: #059669;
     --text-color: #1e293b;
     --text-light: #64748b;
@@ -53,11 +60,13 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: var(--font-family);
+    font-family: 'Poppins', var(--font-family);
     background-color: var(--background-color);
-    color: var(--text-color);
+    color: var(--text);
     line-height: 1.5;
     transition: background-color 0.3s, color 0.3s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   a {
