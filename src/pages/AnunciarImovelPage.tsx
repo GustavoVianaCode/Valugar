@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { 
   PageWrapper, 
   PageTitle, 
@@ -15,49 +14,72 @@ import TipoImovelStep from '../components/anunciar-imovel/TipoImovelStep';
 import InfoBasicasStep from '../components/anunciar-imovel/InfoBasicasStep';
 import LocalizacaoStep from '../components/anunciar-imovel/LocalizacaoStep';
 import FotosStep from '../components/anunciar-imovel/FotosStep';
-import ContatoStep from '../components/anunciar-imovel/ContatoStep';
 
 // Tipos de dados para o formulário
 type PropertyType = 'residencial' | 'comercial' | null;
+type AdFormat = 'completo' | 'simples' | null;
 type ResidentialType = 'casa' | 'apartamento' | 'kitnet' | 'quarto' | 'sitio' | 'outros' | null;
-type ContactPreference = 'qualquer' | 'telefone' | 'email' | null;
+type CommercialType = 'loja' | 'box' | 'armazem' | 'sala' | 'predio' | 'outros' | null;
 
 // Etapas do formulário
-type FormStep = 'tipo' | 'info' | 'localizacao' | 'fotos' | 'contato';
+type FormStep = 'tipo' | 'info' | 'localizacao' | 'fotos';
 
 const AnunciarImovelPage: React.FC = () => {
   // Estados para controlar as etapas e dados do formulário
   const [currentStep, setCurrentStep] = useState<FormStep>('tipo');
+  
+  // Etapa 1 - Tipo
   const [propertyType, setPropertyType] = useState<PropertyType>(null);
-  const [wantsFeatured, setWantsFeatured] = useState<boolean>(false);
+  const [adFormat, setAdFormat] = useState<AdFormat>(null);
+  
+  // Etapa 2 - Informações Básicas
+  const [shortTitle, setShortTitle] = useState<string>('');
+  const [detailedDescription, setDetailedDescription] = useState<string>('');
   const [residentialType, setResidentialType] = useState<ResidentialType>(null);
-  const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
+  const [commercialType, setCommercialType] = useState<CommercialType>(null);
+  const [bedrooms, setBedrooms] = useState<number>(1);
+  const [bathrooms, setBathrooms] = useState<number>(1);
+  const [rooms, setRooms] = useState<number>(1);
   const [area, setArea] = useState<string>('');
-  const [bedrooms, setBedrooms] = useState<number>(0);
-  const [bathrooms, setBathrooms] = useState<number>(0);
+  const [rent, setRent] = useState<string>('');
+  const [additionalCosts, setAdditionalCosts] = useState<string>('');
+  
+  // Informações adicionais (apenas anúncio completo)
+  const [doesNotPayWater, setDoesNotPayWater] = useState<boolean>(false);
+  const [hasGarage, setHasGarage] = useState<boolean>(false);
+  const [acceptsPets, setAcceptsPets] = useState<boolean>(false);
+  const [isFurnished, setIsFurnished] = useState<boolean>(false);
+  const [hasCeramicFloor, setHasCeramicFloor] = useState<boolean>(false);
+  const [hasPool, setHasPool] = useState<boolean>(false);
+  const [hasYard, setHasYard] = useState<boolean>(false);
+  const [hasSolarPanel, setHasSolarPanel] = useState<boolean>(false);
+  
+  // Informações adicionais comerciais
+  const [hasOwnParking, setHasOwnParking] = useState<boolean>(false);
+  const [isAccessible, setIsAccessible] = useState<boolean>(false);
+  const [hasAirConditioning, setHasAirConditioning] = useState<boolean>(false);
+  const [hasChildArea, setHasChildArea] = useState<boolean>(false);
+  const [hasKitchen, setHasKitchen] = useState<boolean>(false);
+  const [hasWarehouse, setHasWarehouse] = useState<boolean>(false);
+  
+  // Etapa 3 - Localização
+  const [cep, setCep] = useState<string>('');
   const [street, setStreet] = useState<string>('');
   const [number, setNumber] = useState<string>('');
   const [complement, setComplement] = useState<string>('');
   const [neighborhood, setNeighborhood] = useState<string>('');
   const [city, setCity] = useState<string>('');
-  const [state, setState] = useState<string>('');
+  
+  // Etapa 4 - Fotos
   const [photos, setPhotos] = useState<File[]>([]);
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [phone, setPhone] = useState<string>('');
-  const [contactPreference, setContactPreference] = useState<ContactPreference>('qualquer');
-
-  // Descomentado quando for necessário navegar
-  // const navigate = useNavigate();
+  const [video, setVideo] = useState<File | null>(null);
 
   // Função para navegar para a próxima etapa
   const nextStep = () => {
     if (currentStep === 'tipo') setCurrentStep('info');
     else if (currentStep === 'info') setCurrentStep('localizacao');
     else if (currentStep === 'localizacao') setCurrentStep('fotos');
-    else if (currentStep === 'fotos') setCurrentStep('contato');
-    else if (currentStep === 'contato') handleSubmit();
+    else if (currentStep === 'fotos') handleSubmit();
   };
 
   // Função para voltar para a etapa anterior
@@ -65,7 +87,6 @@ const AnunciarImovelPage: React.FC = () => {
     if (currentStep === 'info') setCurrentStep('tipo');
     else if (currentStep === 'localizacao') setCurrentStep('info');
     else if (currentStep === 'fotos') setCurrentStep('localizacao');
-    else if (currentStep === 'contato') setCurrentStep('fotos');
   };
 
   // Função para navegar para uma etapa específica
@@ -77,103 +98,103 @@ const AnunciarImovelPage: React.FC = () => {
 
   // Verifica se pode navegar para uma etapa específica
   const canNavigateToStep = (step: FormStep): boolean => {
-    // Lógica para permitir ou não a navegação para uma etapa específica
-    // Por exemplo, só permite navegar para a etapa de informações básicas se já tiver escolhido o tipo de imóvel
     if (step === 'tipo') return true;
-    if (step === 'info' && propertyType !== null) return true;
-    if (step === 'localizacao' && propertyType !== null && validateBasicInfo()) return true;
-    if (step === 'fotos' && propertyType !== null && validateBasicInfo() && validateLocation()) return true;
-    if (step === 'contato' && propertyType !== null && validateBasicInfo() && validateLocation() && photos.length > 0) return true;
+    if (step === 'info' && propertyType !== null && adFormat !== null) return true;
+    if (step === 'localizacao' && propertyType !== null && adFormat !== null && validateBasicInfo()) return true;
+    if (step === 'fotos' && propertyType !== null && adFormat !== null && validateBasicInfo() && validateLocation()) return true;
     return false;
   };
 
   // Verifica se uma etapa está completa
   const isStepCompleted = (step: FormStep): boolean => {
-    if (step === 'tipo') return propertyType !== null;
-    if (step === 'info') return propertyType !== null && validateBasicInfo();
-    if (step === 'localizacao') return propertyType !== null && validateBasicInfo() && validateLocation();
-    if (step === 'fotos') return propertyType !== null && validateBasicInfo() && validateLocation() && photos.length > 0;
-    if (step === 'contato') return propertyType !== null && validateBasicInfo() && validateLocation() && photos.length > 0 && validateContact();
+    if (step === 'tipo') return propertyType !== null && adFormat !== null;
+    if (step === 'info') return propertyType !== null && adFormat !== null && validateBasicInfo();
+    if (step === 'localizacao') return propertyType !== null && adFormat !== null && validateBasicInfo() && validateLocation();
+    if (step === 'fotos') return propertyType !== null && adFormat !== null && validateBasicInfo() && validateLocation() && photos.length > 0;
     return false;
   };
 
   // Validações de cada etapa
   const validateBasicInfo = (): boolean => {
-    // Valida informações básicas
+    if (!shortTitle || !detailedDescription || !rent || !area) return false;
     if (propertyType === 'residencial' && !residentialType) return false;
-    if (!title || !description || !rent || !area) return false;
+    if (propertyType === 'comercial' && !commercialType) return false;
     return true;
   };
 
   const validateLocation = (): boolean => {
-    // Valida informações de localização
-    if (!street || !number || !neighborhood || !city || !state) return false;
-    return true;
-  };
-
-  const validateContact = (): boolean => {
-    // Valida informações de contato
-    if (!name || !email || !phone || !contactPreference) return false;
+    if (!cep || !street || !number || !neighborhood || !city) return false;
     return true;
   };
 
   // Função para lidar com o envio do formulário
   const handleSubmit = () => {
-    // Aqui você pode enviar os dados para um backend, por exemplo
     console.log({
       propertyType,
+      adFormat,
+      shortTitle,
+      detailedDescription,
       residentialType,
-      title,
-      description,
-      area,
+      commercialType,
       bedrooms,
       bathrooms,
+      rooms,
+      area,
       rent,
+      additionalCosts,
       location: {
+        cep,
         street,
         number,
         complement,
         neighborhood,
-        city,
-        state
+        city
       },
       photos,
       video,
-      contact: {
-        name,
-        email,
-        phone,
-        contactPreference
-      },
-      wantsFeatured
+      additionalInfo: adFormat === 'completo' ? {
+        residencial: propertyType === 'residencial' ? {
+          doesNotPayWater,
+          hasGarage,
+          acceptsPets,
+          isFurnished,
+          hasCeramicFloor,
+          hasPool,
+          hasYard,
+          hasSolarPanel
+        } : null,
+        comercial: propertyType === 'comercial' ? {
+          hasOwnParking,
+          isAccessible,
+          hasAirConditioning,
+          hasChildArea,
+          hasKitchen,
+          hasWarehouse
+        } : null
+      } : null
     });
     
-    // Redirecionar para outra página após o envio bem-sucedido
-    // navigate('/success');
-    
-    // Por enquanto, apenas mostramos um alerta
     alert('Imóvel anunciado com sucesso!');
   };
 
   // Renderiza o contador de etapas
   const renderStepCounter = () => {
-    if (currentStep === 'tipo') return '1/5';
-    if (currentStep === 'info') return '2/5';
-    if (currentStep === 'localizacao') return '3/5';
-    if (currentStep === 'fotos') return '4/5';
-    if (currentStep === 'contato') return '5/5';
+    if (currentStep === 'tipo') return '1/4';
+    if (currentStep === 'info') return '2/4';
+    if (currentStep === 'localizacao') return '3/4';
+    if (currentStep === 'fotos') return '4/4';
     return '';
   };
 
   // Renderiza o botão de ação (continuar ou finalizar)
   const renderActionButton = () => {
-    if (currentStep === 'contato') {
+    if (currentStep === 'fotos') {
       return (
         <FinalizeButton 
           onClick={handleSubmit}
-          disabled={!validateContact()}
+          disabled={photos.length === 0}
         >
-          Finalizar
+          Continuar
         </FinalizeButton>
       );
     }
@@ -190,26 +211,12 @@ const AnunciarImovelPage: React.FC = () => {
 
   // Verifica se pode avançar para a próxima etapa
   const canProceedToNextStep = (): boolean => {
-    if (currentStep === 'tipo') return propertyType !== null;
+    if (currentStep === 'tipo') return propertyType !== null && adFormat !== null;
     if (currentStep === 'info') return validateBasicInfo();
     if (currentStep === 'localizacao') return validateLocation();
     if (currentStep === 'fotos') return photos.length > 0;
-    if (currentStep === 'contato') return validateContact();
     return false;
   };
-
-  // Adiciona propriedades que faltam
-  const [rent, setRent] = useState<string>('');
-  const [additionalCosts, setAdditionalCosts] = useState<boolean>(false);
-  const [hasGarage, setHasGarage] = useState<boolean>(false);
-  const [acceptsPets, setAcceptsPets] = useState<boolean>(false);
-  const [hasPool, setHasPool] = useState<boolean>(false);
-  const [hasCeramicFloor, setHasCeramicFloor] = useState<boolean>(false);
-  const [isFurnished, setIsFurnished] = useState<boolean>(false);
-  const [hasOceanView, setHasOceanView] = useState<boolean>(false);
-  const [hasGrill, setHasGrill] = useState<boolean>(false);
-  const [hasSolarPanel, setHasSolarPanel] = useState<boolean>(false);
-  const [video, setVideo] = useState<File | null>(null);
 
   // Renderiza o conteúdo da etapa atual
   const renderStep = () => {
@@ -219,57 +226,72 @@ const AnunciarImovelPage: React.FC = () => {
           <TipoImovelStep 
             propertyType={propertyType}
             setPropertyType={setPropertyType}
-            wantsFeatured={wantsFeatured}
-            setWantsFeatured={setWantsFeatured}
+            adFormat={adFormat}
+            setAdFormat={setAdFormat}
           />
         );
         
       case 'info':
         return (
           <InfoBasicasStep 
-            title={title}
-            setTitle={setTitle}
-            description={description}
-            setDescription={setDescription}
+            shortTitle={shortTitle}
+            setShortTitle={setShortTitle}
+            detailedDescription={detailedDescription}
+            setDetailedDescription={setDetailedDescription}
             residentialType={residentialType}
             setResidentialType={setResidentialType}
+            commercialType={commercialType}
+            setCommercialType={setCommercialType}
             bedrooms={bedrooms}
             setBedrooms={setBedrooms}
             bathrooms={bathrooms}
             setBathrooms={setBathrooms}
+            rooms={rooms}
+            setRooms={setRooms}
             area={area}
             setArea={setArea}
             rent={rent}
             setRent={setRent}
             additionalCosts={additionalCosts}
             setAdditionalCosts={setAdditionalCosts}
-            wantsFeatured={wantsFeatured}
+            adFormat={adFormat}
+            propertyType={propertyType}
+            doesNotPayWater={doesNotPayWater}
+            setDoesNotPayWater={setDoesNotPayWater}
             hasGarage={hasGarage}
             setHasGarage={setHasGarage}
             acceptsPets={acceptsPets}
             setAcceptsPets={setAcceptsPets}
-            hasPool={hasPool}
-            setHasPool={setHasPool}
-            hasCeramicFloor={hasCeramicFloor}
-            setHasCeramicFloor={setHasCeramicFloor}
             isFurnished={isFurnished}
             setIsFurnished={setIsFurnished}
-            hasOceanView={hasOceanView}
-            setHasOceanView={setHasOceanView}
-            hasGrill={hasGrill}
-            setHasGrill={setHasGrill}
+            hasCeramicFloor={hasCeramicFloor}
+            setHasCeramicFloor={setHasCeramicFloor}
+            hasPool={hasPool}
+            setHasPool={setHasPool}
+            hasYard={hasYard}
+            setHasYard={setHasYard}
             hasSolarPanel={hasSolarPanel}
             setHasSolarPanel={setHasSolarPanel}
+            hasOwnParking={hasOwnParking}
+            setHasOwnParking={setHasOwnParking}
+            isAccessible={isAccessible}
+            setIsAccessible={setIsAccessible}
+            hasAirConditioning={hasAirConditioning}
+            setHasAirConditioning={setHasAirConditioning}
+            hasChildArea={hasChildArea}
+            setHasChildArea={setHasChildArea}
+            hasKitchen={hasKitchen}
+            setHasKitchen={setHasKitchen}
+            hasWarehouse={hasWarehouse}
+            setHasWarehouse={setHasWarehouse}
           />
         );
         
       case 'localizacao':
         return (
           <LocalizacaoStep 
-            state={state}
-            setState={setState}
-            city={city}
-            setCity={setCity}
+            cep={cep}
+            setCep={setCep}
             street={street}
             setStreet={setStreet}
             number={number}
@@ -278,6 +300,8 @@ const AnunciarImovelPage: React.FC = () => {
             setComplement={setComplement}
             neighborhood={neighborhood}
             setNeighborhood={setNeighborhood}
+            city={city}
+            setCity={setCity}
           />
         );
         
@@ -286,23 +310,8 @@ const AnunciarImovelPage: React.FC = () => {
           <FotosStep 
             photos={photos}
             setPhotos={setPhotos}
-            wantsFeatured={wantsFeatured}
             video={video}
             setVideo={setVideo}
-          />
-        );
-        
-      case 'contato':
-        return (
-          <ContatoStep 
-            name={name}
-            setName={setName}
-            email={email}
-            setEmail={setEmail}
-            phone={phone}
-            setPhone={setPhone}
-            contactPreference={contactPreference}
-            setContactPreference={setContactPreference}
           />
         );
         
