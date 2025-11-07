@@ -10,23 +10,70 @@ const PageWrapper = styled.div`
 `;
 
 const RegisterContainer = styled.div`
-  max-width: 500px; // Diminuído para comportar apenas o formulário
+  max-width: 500px;
   width: 100%;
-  margin: 0 auto; // Centraliza horizontalmente
+  margin: 0 auto;
   position: relative;
-  border: 1px solid #e0e0e0; // Adiciona borda sutil ao redor do formulário
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
-  padding: 30px;
+  padding: 40px;
   background-color: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 `;
 
-const FormTitle = styled.h2`
+const WelcomeTitle = styled.h1`
   color: #0090C1;
-  font-size: 26px;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: 600;
+`;
+
+const WelcomeSubtitle = styled.p`
+  color: #666;
+  font-size: 14px;
   text-align: center;
   margin-bottom: 30px;
-  font-weight: 600;
+`;
+
+const GoogleButton = styled.button`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 12px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  margin-bottom: 20px;
+  
+  &:hover {
+    background-color: #f9f9f9;
+  }
+`;
+
+const Divider = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  span {
+    padding: 0 10px;
+    color: #999;
+    font-size: 14px;
+  }
 `;
 
 const FormGroup = styled.div`
@@ -69,26 +116,6 @@ const PasswordVisibilityButton = styled.button`
   cursor: pointer;
 `;
 
-const TermsCheckbox = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin: 20px 0;
-  
-  input {
-    margin: 4px 10px 0 0;
-  }
-  
-  span {
-    font-size: 14px;
-    color: #666;
-  }
-  
-  a {
-    color: #0090C1;
-    text-decoration: none;
-  }
-`;
-
 const SubmitButton = styled.button`
   width: 100%;
   background-color: #0090C1;
@@ -116,54 +143,31 @@ const LoginPrompt = styled.p`
     color: #0090C1;
     text-decoration: none;
     font-weight: 500;
-  }
-`;
-
-// Marcadores de guia de design (visíveis apenas no modo de desenvolvimento)
-const DesignGuides = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  
-  .blue-guide {
-    position: absolute;
-    border: 1px solid #0099ff;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-  }
-  
-  .pink-guide {
-    position: absolute;
-    border: 1px solid #ff00ff;
-    left: 10px;
-    right: 10px;
-    top: 10px;
-    bottom: 10px;
+    
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [showGuides, setShowGuides] = useState(false); // Para desenvolvimento
   
   return (
     <PageWrapper>
       <RegisterContainer>
-        {/* Guias de design visíveis apenas em desenvolvimento */}
-        {showGuides && (
-          <DesignGuides>
-            <div className="blue-guide"></div>
-            <div className="pink-guide"></div>
-          </DesignGuides>
-        )}
+        <WelcomeTitle>Crie sua conta</WelcomeTitle>
+        <WelcomeSubtitle>Preencha os dados abaixo para continuar</WelcomeSubtitle>
         
-        <FormTitle>Criar conta</FormTitle>
+        <GoogleButton type="button">
+          <img src="https://www.google.com/favicon.ico" alt="Google" width="18" height="18" />
+          Continuar com o Google
+        </GoogleButton>
+        
+        <Divider>
+          <span>ou</span>
+        </Divider>
         
         <form>
           <FormGroup>
@@ -172,13 +176,13 @@ const RegisterPage = () => {
           </FormGroup>
           
           <FormGroup>
-            <Label>Email</Label>
-            <Input type="email" placeholder="Digite seu email" />
+            <Label>Telefone</Label>
+            <Input type="tel" placeholder="(00) 0 0000-0000" />
           </FormGroup>
           
           <FormGroup>
-            <Label>Telefone</Label>
-            <Input type="tel" placeholder="(00) 00000-0000" />
+            <Label>Email</Label>
+            <Input type="email" placeholder="Digite seu email" />
           </FormGroup>
           
           <FormGroup>
@@ -213,17 +217,10 @@ const RegisterPage = () => {
             </PasswordField>
           </FormGroup>
           
-          <TermsCheckbox>
-            <input type="checkbox" id="terms" />
-            <span>
-              Eu aceito os <Link to="/termos">Termos de Uso</Link> e <Link to="/politica">Política de privacidade</Link>
-            </span>
-          </TermsCheckbox>
-          
-          <SubmitButton type="submit">Criar conta</SubmitButton>
+          <SubmitButton type="submit">Entrar</SubmitButton>
           
           <LoginPrompt>
-            Já possui uma conta? <Link to="/entrar">Faça login</Link>
+            Já possui uma conta? <Link to="/entrar">Entre aqui</Link>
           </LoginPrompt>
         </form>
       </RegisterContainer>
