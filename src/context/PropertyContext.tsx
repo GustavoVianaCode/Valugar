@@ -23,6 +23,8 @@ interface PropertyContextType {
   error: string | null;
   getPropertyById: (id: string) => Property | undefined;
   searchProperties: (query: string, filters?: any) => Property[];
+  getAllProperties: () => Property[];
+  getFeaturedProperties: (limit?: number) => Property[];
 }
 
 const PropertyContext = createContext<PropertyContextType | undefined>(undefined);
@@ -53,7 +55,7 @@ const mockProperties: Property[] = [
     area: 150,
     bedrooms: 3,
     bathrooms: 2,
-    images: ['/placeholder.jpg'],
+    images: ['/imagens/casapalugar.jpg'],
     featured: true
   },
   {
@@ -68,7 +70,7 @@ const mockProperties: Property[] = [
     area: 80,
     bedrooms: 2,
     bathrooms: 1,
-    images: ['/placeholder.jpg'],
+    images: ['/imagens/apartamento.jpg'],
     featured: true
   },
   {
@@ -81,7 +83,7 @@ const mockProperties: Property[] = [
     type: 'commercial',
     status: 'for-sale',
     area: 60,
-    images: ['/placeholder.jpg'],
+    images: ['/imagens/sitio.jpg'],
     featured: false
   },
   {
@@ -94,7 +96,7 @@ const mockProperties: Property[] = [
     type: 'commercial',
     status: 'for-rent',
     area: 45,
-    images: ['/placeholder.jpg'],
+    images: ['/imagens/shopping.jpg'],
     featured: true
   },
   {
@@ -109,7 +111,7 @@ const mockProperties: Property[] = [
     area: 200,
     bedrooms: 4,
     bathrooms: 3,
-    images: ['/placeholder.jpg'],
+    images: ['/imagens/casapiscina.jpg'],
     featured: true
   }
 ];
@@ -123,6 +125,17 @@ export const PropertyProvider = ({ children }: PropertyProviderProps) => {
 
   const getPropertyById = (id: string) => {
     return properties.find(property => property.id === id);
+  };
+
+  const getAllProperties = () => {
+    return [...properties];
+  };
+
+  const getFeaturedProperties = (limit?: number) => {
+    if (limit) {
+      return featuredProperties.slice(0, limit);
+    }
+    return featuredProperties;
   };
 
   const searchProperties = (query: string, filters?: any) => {
@@ -171,7 +184,9 @@ export const PropertyProvider = ({ children }: PropertyProviderProps) => {
       loading,
       error,
       getPropertyById,
-      searchProperties
+      searchProperties,
+      getAllProperties,
+      getFeaturedProperties
     }}>
       {children}
     </PropertyContext.Provider>

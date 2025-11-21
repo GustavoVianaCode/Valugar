@@ -1,275 +1,609 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { useProperties, Property } from '../context/PropertyContext';
 import PropertyCard from '../components/PropertyCard';
 
 const PageContainer = styled.div`
   max-width: 1440px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 20px;
+  background-color: #fff;
 `;
 
-const PageTitle = styled.h1`
-  color: #0090C1;
-  font-size: 30px;
+const Breadcrumb = styled.div`
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+  
+  a {
+    color: #0090C1;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const SearchHeader = styled.div`
   margin-bottom: 30px;
+`;
+
+const LocationLabel = styled.label`
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+`;
+
+const SearchInputContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
+const SearchInput = styled.input`
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  
+  &::placeholder {
+    color: #aaa;
+  }
+`;
+
+const SearchIconButton = styled.button`
+  background-color: #0090C1;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  &:hover {
+    background-color: #007aa9;
+  }
+`;
+
+const ResultsInfo = styled.div`
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
 `;
 
 const SearchContainer = styled.div`
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 280px 1fr;
   gap: 30px;
+  align-items: start;
+  
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const FilterSidebar = styled.div`
+  background: #fff;
+  padding: 0;
+  max-width: 280px;
+  width: 100%;
+`;
+
+const FilterSection = styled.div`
+  margin-bottom: 25px;
+`;
+
+const FilterTitle = styled.h3`
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+`;
+
+const CheckboxGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const CheckboxLabel = styled.label`
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  
+  input {
+    margin-right: 8px;
+    cursor: pointer;
+  }
+`;
+
+const RangeInputs = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const RangeInput = styled.input`
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  box-sizing: border-box;
+  width: 100%;
+  
+  &::placeholder {
+    color: #aaa;
+  }
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+`;
+
+const NumberButton = styled.button<{ selected?: boolean }>`
+  padding: 8px 16px;
+  border: 1px solid ${props => props.selected ? '#0090C1' : '#ddd'};
+  background-color: ${props => props.selected ? '#0090C1' : '#fff'};
+  color: ${props => props.selected ? '#fff' : '#333'};
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  
+  &:hover {
+    border-color: #0090C1;
+  }
+`;
+
+const SecondaryButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #333;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+  
+  &:hover {
+    background-color: #f5f5f5;
+  }
+`;
+
+const ResultsContainer = styled.div`
+  padding: 0;
+`;
+
+const PropertiesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+  
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `;
 
-const FilterSidebar = styled.div`
-  background: #f5f5f5;
-  padding: 20px;
-  border-radius: 8px;
-`;
-
-// Remove unused styled component
-
-const FilterGroup = styled.div`
-  margin-bottom: 20px;
-`;
-
-const Label = styled.label`
-  display: block;
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #333;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-`;
-
-const Select = styled.select`
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-`;
-
-const RangeContainer = styled.div`
+const Pagination = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
-  
-  input {
-    width: 50%;
-  }
+  margin-top: 40px;
 `;
 
-const SearchButton = styled.button`
-  background-color: #0090C1;
-  color: white;
-  border: none;
-  padding: 10px 15px;
+const PageButton = styled.button<{ active?: boolean }>`
+  padding: 8px 12px;
+  border: 1px solid ${props => props.active ? '#0090C1' : '#ddd'};
+  background-color: ${props => props.active ? '#0090C1' : '#fff'};
+  color: ${props => props.active ? '#fff' : '#333'};
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
-  width: 100%;
-  transition: background-color 0.3s;
   
   &:hover {
-    background-color: #007a9e;
+    border-color: #0090C1;
   }
-`;
-
-const ResultsContainer = styled.div`
-  padding: 0 10px;
-`;
-
-const ResultsHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-const ResultsCount = styled.p`
-  font-size: 16px;
-`;
-
-const SortSelect = styled.select`
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-`;
-
-const PropertiesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
 
 const NoResults = styled.div`
   text-align: center;
-  padding: 40px;
-  font-size: 18px;
+  padding: 60px 20px;
+  font-size: 16px;
   color: #666;
 `;
 
 const SearchPage: React.FC = () => {
-  const { searchProperties } = useProperties();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [propertyType, setPropertyType] = useState('');
+  const { searchProperties, getFeaturedProperties } = useProperties();
+  const [locationSearch, setLocationSearch] = useState('');
+  
+  // Filters state
+  const [announcementType, setAnnouncementType] = useState({
+    residential: false,
+    commercial: false
+  });
+  
+  const [propertyType, setPropertyType] = useState({
+    casa: false,
+    apartamento: false,
+    kitnet: false,
+    quarto: false,
+    sitio: false
+  });
+  
   const [priceMin, setPriceMin] = useState('');
   const [priceMax, setPriceMax] = useState('');
+  const [condoMin, setCondoMin] = useState('');
+  const [condoMax, setCondoMax] = useState('');
+  const [noCondoFee, setNoCondoFee] = useState(false);
+  
+  const [bedrooms, setBedrooms] = useState<number | null>(null);
+  const [bathrooms, setBathrooms] = useState<number | null>(null);
+  
+  const [areaMin, setAreaMin] = useState('');
+  const [areaMax, setAreaMax] = useState('');
+  
+  const [amenities, setAmenities] = useState({
+    noWaterBill: false,
+    garage: false,
+    ceramicFloor: false,
+    petFriendly: false,
+    roofed: false,
+    municipal: false,
+    pool: false,
+    solarPanel: false
+  });
+  
   const [searchResults, setSearchResults] = useState<Property[]>([]);
-  const [sortOption, setSortOption] = useState('price_asc');
+  const [currentPage, setCurrentPage] = useState(1);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const resultsPerPage = 6;
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Create filters object
+  // Carregar imóveis em destaque ao iniciar
+  useEffect(() => {
+    const initialProperties = getFeaturedProperties(6);
+    setSearchResults(initialProperties);
+  }, [getFeaturedProperties]);
+
+  const handleSearch = () => {
     const filters = {
-      type: propertyType || undefined,
       priceMin: priceMin ? parseInt(priceMin) : undefined,
       priceMax: priceMax ? parseInt(priceMax) : undefined
     };
     
-    // Call searchProperties from context
-    const results = searchProperties(searchQuery, filters);
-    
-    // Sort results
-    const sortedResults = sortResults(results, sortOption);
-    
-    setSearchResults(sortedResults);
+    const results = searchProperties(locationSearch, filters);
+    setSearchResults(results);
     setIsInitialLoad(false);
+    setCurrentPage(1);
   };
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortOption(e.target.value);
-    setSearchResults(sortResults(searchResults, e.target.value));
-  };
-
-  const sortResults = (results: Property[], sortBy: string) => {
-    const sorted = [...results];
-    
-    switch(sortBy) {
-      case 'price_asc':
-        return sorted.sort((a, b) => a.price - b.price);
-      case 'price_desc':
-        return sorted.sort((a, b) => b.price - a.price);
-      case 'area_asc':
-        return sorted.sort((a, b) => a.area - b.area);
-      case 'area_desc':
-        return sorted.sort((a, b) => b.area - a.area);
-      default:
-        return sorted;
-    }
-  };
+  // Pagination logic
+  const indexOfLastResult = currentPage * resultsPerPage;
+  const indexOfFirstResult = indexOfLastResult - resultsPerPage;
+  const currentResults = searchResults.slice(indexOfFirstResult, indexOfLastResult);
+  const totalPages = Math.ceil(searchResults.length / resultsPerPage);
 
   return (
     <PageContainer>
-      <PageTitle>Buscar Imóveis</PageTitle>
+      <Breadcrumb>
+        <Link to="/">Início</Link> / Detalhamento do Imóvel
+      </Breadcrumb>
+      
+      <SearchHeader>
+        <LocationLabel>Localização</LocationLabel>
+        <SearchInputContainer>
+          <SearchInput 
+            type="text" 
+            placeholder="Procurar por endereço, bairro, cidade ou CEP"
+            value={locationSearch}
+            onChange={(e) => setLocationSearch(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+          />
+          <SearchIconButton onClick={handleSearch}>
+            🔍 Buscar
+          </SearchIconButton>
+        </SearchInputContainer>
+      </SearchHeader>
+      
+      <ResultsInfo>
+        {isInitialLoad 
+          ? "Mostrando imóveis em destaque" 
+          : `Exibindo ${indexOfFirstResult + 1} - ${Math.min(indexOfLastResult, searchResults.length)} de ${searchResults.length} resultados`
+        }
+      </ResultsInfo>
       
       <SearchContainer>
         <FilterSidebar>
-          <form onSubmit={handleSearch}>
-            <FilterGroup>
-              <Label>Busca por palavra-chave</Label>
-              <Input 
+          <FilterSection>
+            <FilterTitle>Tipo do anúncio</FilterTitle>
+            <CheckboxGroup>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox" 
+                  checked={announcementType.residential}
+                  onChange={(e) => setAnnouncementType({...announcementType, residential: e.target.checked})}
+                />
+                Residencial
+              </CheckboxLabel>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={announcementType.commercial}
+                  onChange={(e) => setAnnouncementType({...announcementType, commercial: e.target.checked})}
+                />
+                Comercial
+              </CheckboxLabel>
+            </CheckboxGroup>
+          </FilterSection>
+
+          <FilterSection>
+            <FilterTitle>Tipo do imóvel</FilterTitle>
+            <CheckboxGroup>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={propertyType.casa}
+                  onChange={(e) => setPropertyType({...propertyType, casa: e.target.checked})}
+                />
+                Casa
+              </CheckboxLabel>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={propertyType.apartamento}
+                  onChange={(e) => setPropertyType({...propertyType, apartamento: e.target.checked})}
+                />
+                Apartamento
+              </CheckboxLabel>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={propertyType.kitnet}
+                  onChange={(e) => setPropertyType({...propertyType, kitnet: e.target.checked})}
+                />
+                Kitnet
+              </CheckboxLabel>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={propertyType.quarto}
+                  onChange={(e) => setPropertyType({...propertyType, quarto: e.target.checked})}
+                />
+                Quarto
+              </CheckboxLabel>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={propertyType.sitio}
+                  onChange={(e) => setPropertyType({...propertyType, sitio: e.target.checked})}
+                />
+                Sítio/Chácara
+              </CheckboxLabel>
+            </CheckboxGroup>
+          </FilterSection>
+
+          <FilterSection>
+            <FilterTitle>Preço</FilterTitle>
+            <RangeInputs>
+              <RangeInput 
                 type="text" 
-                placeholder="Ex: apartamento com varanda" 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Mín"
+                value={priceMin}
+                onChange={(e) => setPriceMin(e.target.value)}
               />
-            </FilterGroup>
-            
-            <FilterGroup>
-              <Label>Tipo de Imóvel</Label>
-              <Select 
-                value={propertyType}
-                onChange={(e) => setPropertyType(e.target.value)}
-              >
-                <option value="">Todos os tipos</option>
-                <option value="residential">Residencial</option>
-                <option value="commercial">Comercial</option>
-              </Select>
-            </FilterGroup>
-            
-            <FilterGroup>
-              <Label>Faixa de Preço</Label>
-              <RangeContainer>
-                <Input 
-                  type="number" 
-                  placeholder="Mínimo" 
-                  value={priceMin}
-                  onChange={(e) => setPriceMin(e.target.value)}
+              <RangeInput 
+                type="text" 
+                placeholder="Máx"
+                value={priceMax}
+                onChange={(e) => setPriceMax(e.target.value)}
+              />
+            </RangeInputs>
+          </FilterSection>
+
+          <FilterSection>
+            <FilterTitle>Condomínio</FilterTitle>
+            <RangeInputs>
+              <RangeInput 
+                type="text" 
+                placeholder="Mín"
+                value={condoMin}
+                onChange={(e) => setCondoMin(e.target.value)}
+              />
+              <RangeInput 
+                type="text" 
+                placeholder="Máx"
+                value={condoMax}
+                onChange={(e) => setCondoMax(e.target.value)}
+              />
+            </RangeInputs>
+            <SecondaryButton onClick={() => setNoCondoFee(!noCondoFee)}>
+              Sem condomínio
+            </SecondaryButton>
+          </FilterSection>
+
+          <FilterSection>
+            <FilterTitle>Número de quartos</FilterTitle>
+            <ButtonGroup>
+              <NumberButton selected={bedrooms === 1} onClick={() => setBedrooms(1)}>1</NumberButton>
+              <NumberButton selected={bedrooms === 2} onClick={() => setBedrooms(2)}>2</NumberButton>
+              <NumberButton selected={bedrooms === 3} onClick={() => setBedrooms(3)}>3</NumberButton>
+              <NumberButton selected={bedrooms === 4} onClick={() => setBedrooms(4)}>4+</NumberButton>
+            </ButtonGroup>
+          </FilterSection>
+
+          <FilterSection>
+            <FilterTitle>Número de banheiros</FilterTitle>
+            <ButtonGroup>
+              <NumberButton selected={bathrooms === 1} onClick={() => setBathrooms(1)}>1</NumberButton>
+              <NumberButton selected={bathrooms === 2} onClick={() => setBathrooms(2)}>2</NumberButton>
+              <NumberButton selected={bathrooms === 3} onClick={() => setBathrooms(3)}>3</NumberButton>
+              <NumberButton selected={bathrooms === 4} onClick={() => setBathrooms(4)}>4+</NumberButton>
+            </ButtonGroup>
+          </FilterSection>
+
+          <FilterSection>
+            <FilterTitle>Área</FilterTitle>
+            <RangeInputs>
+              <RangeInput 
+                type="text" 
+                placeholder="Mín"
+                value={areaMin}
+                onChange={(e) => setAreaMin(e.target.value)}
+              />
+              <RangeInput 
+                type="text" 
+                placeholder="Máx"
+                value={areaMax}
+                onChange={(e) => setAreaMax(e.target.value)}
+              />
+            </RangeInputs>
+          </FilterSection>
+
+          <FilterSection>
+            <FilterTitle>Detalhes do imóvel</FilterTitle>
+            <CheckboxGroup>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={amenities.noWaterBill}
+                  onChange={(e) => setAmenities({...amenities, noWaterBill: e.target.checked})}
                 />
-                <Input 
-                  type="number" 
-                  placeholder="Máximo" 
-                  value={priceMax}
-                  onChange={(e) => setPriceMax(e.target.value)}
+                Não paga água
+              </CheckboxLabel>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={amenities.garage}
+                  onChange={(e) => setAmenities({...amenities, garage: e.target.checked})}
                 />
-              </RangeContainer>
-            </FilterGroup>
-            
-            <SearchButton type="submit">Buscar</SearchButton>
-          </form>
+                Possui garagem
+              </CheckboxLabel>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={amenities.ceramicFloor}
+                  onChange={(e) => setAmenities({...amenities, ceramicFloor: e.target.checked})}
+                />
+                Piso de cerâmica
+              </CheckboxLabel>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={amenities.petFriendly}
+                  onChange={(e) => setAmenities({...amenities, petFriendly: e.target.checked})}
+                />
+                Aceita pet
+              </CheckboxLabel>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={amenities.roofed}
+                  onChange={(e) => setAmenities({...amenities, roofed: e.target.checked})}
+                />
+                Imóvel forrado
+              </CheckboxLabel>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={amenities.municipal}
+                  onChange={(e) => setAmenities({...amenities, municipal: e.target.checked})}
+                />
+                Possui municipal/IPTU
+              </CheckboxLabel>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={amenities.pool}
+                  onChange={(e) => setAmenities({...amenities, pool: e.target.checked})}
+                />
+                Piscina
+              </CheckboxLabel>
+              <CheckboxLabel>
+                <input 
+                  type="checkbox"
+                  checked={amenities.solarPanel}
+                  onChange={(e) => setAmenities({...amenities, solarPanel: e.target.checked})}
+                />
+                Painel solar
+              </CheckboxLabel>
+            </CheckboxGroup>
+          </FilterSection>
         </FilterSidebar>
         
         <ResultsContainer>
-          {!isInitialLoad && (
+          {currentResults.length > 0 ? (
             <>
-              <ResultsHeader>
-                <ResultsCount>
-                  {searchResults.length} {searchResults.length === 1 ? 'imóvel encontrado' : 'imóveis encontrados'}
-                </ResultsCount>
-                <div>
-                  <Label style={{ display: 'inline' }}>Ordenar por: </Label>
-                  <SortSelect value={sortOption} onChange={handleSortChange}>
-                    <option value="price_asc">Menor preço</option>
-                    <option value="price_desc">Maior preço</option>
-                    <option value="area_asc">Menor área</option>
-                    <option value="area_desc">Maior área</option>
-                  </SortSelect>
-                </div>
-              </ResultsHeader>
+              <PropertiesGrid>
+                {currentResults.map(property => {
+                  const propertyCardData = {
+                    id: property.id,
+                    title: property.title,
+                    location: `${property.address}, ${property.city}`,
+                    price: property.price,
+                    image: property.images && property.images.length > 0 ? property.images[0] : '/imagens/casa1.jpg',
+                    bedrooms: property.bedrooms || 0,
+                    bathrooms: property.bathrooms || 0,
+                    area: property.area,
+                    garages: 1
+                  };
+                  return <PropertyCard key={property.id} property={propertyCardData} />;
+                })}
+              </PropertiesGrid>
               
-              {searchResults.length > 0 ? (
-                <PropertiesGrid>
-                  {searchResults.map(property => {
-                    // Adapt property to match PropertyCard props structure
-                    const propertyCardData = {
-                      id: property.id,
-                      title: property.title,
-                      location: `${property.address}, ${property.city}`,
-                      price: property.price,
-                      image: property.images && property.images.length > 0 ? property.images[0] : '/public/imagens/casa1.jpg',
-                      bedrooms: property.bedrooms || 0,
-                      bathrooms: property.bathrooms || 0,
-                      area: property.area,
-                      garages: 1 // Default value since it's not in our Property type
-                    };
-                    return <PropertyCard key={property.id} property={propertyCardData} />;
-                  })}
-                </PropertiesGrid>
-              ) : (
-                <NoResults>
-                  Nenhum imóvel encontrado com os filtros selecionados.
-                  <p>Tente modificar sua busca para obter resultados.</p>
-                </NoResults>
+              {totalPages > 1 && (
+                <Pagination>
+                  <PageButton 
+                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                    disabled={currentPage === 1}
+                  >
+                    Página anterior
+                  </PageButton>
+                  
+                  {[...Array(totalPages)].map((_, index) => (
+                    <PageButton
+                      key={index + 1}
+                      active={currentPage === index + 1}
+                      onClick={() => setCurrentPage(index + 1)}
+                    >
+                      {index + 1}
+                    </PageButton>
+                  ))}
+                  
+                  <PageButton
+                    onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                    disabled={currentPage === totalPages}
+                  >
+                    Próxima página
+                  </PageButton>
+                </Pagination>
               )}
             </>
-          )}
-          
-          {isInitialLoad && (
+          ) : (
             <NoResults>
-              Use os filtros para encontrar imóveis.
+              Nenhum imóvel encontrado com os filtros selecionados.
+              <p>Tente modificar sua busca para obter resultados.</p>
             </NoResults>
           )}
         </ResultsContainer>
