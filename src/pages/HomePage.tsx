@@ -22,7 +22,7 @@ const HeroSection = styled.section`
     max-width: 1350px;
     height: 100%;
     background-image:
-      linear-gradient(90deg, rgba(4,25,48,0.68) 0%, rgba(4,25,48,0.28) 30%, rgba(0,0,0,0.12) 100%),
+      linear-gradient(90deg, rgba(5, 32, 46, 0.6) 0%, rgba(5, 32, 46, 0.6) 100%),
       url('/imagens/background.jpg');
     background-size: cover;
     background-position: center;
