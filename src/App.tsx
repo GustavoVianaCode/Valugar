@@ -11,6 +11,7 @@ import SearchPage from './pages/SearchPage';
 import PropertyDetailPage from './pages/PropertyDetailPage';
 import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
+import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import { lightTheme, darkTheme } from './styles/theme';
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/imoveis/:id" element={<PropertyDetailPage />} />
             <Route path="/contato" element={<ContactPage />} />
             <Route path="/sobre" element={<AboutPage />} />
+            <Route path="/perfil" element={<ProfilePage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
