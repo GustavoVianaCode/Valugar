@@ -4,88 +4,231 @@ import styled from 'styled-components';
 const PageContainer = styled.div`
   max-width: 1440px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 60px 20px;
+  background-color: #f8f9fa;
+`;
+
+const ContentGrid = styled.div`
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+`;
+
+const LeftSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 `;
 
 const PageTitle = styled.h1`
-  color: #0090C1;
-  font-size: 28px;
+  color: #333;
+  font-size: 32px;
+  margin-bottom: 12px;
+  font-weight: 600;
+`;
+
+const PageSubtitle = styled.p`
+  color: #666;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+`;
+
+const ContactInfoList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`;
+
+const ContactInfoItem = styled.div`
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+`;
+
+const IconWrapper = styled.div`
+  width: 40px;
+  height: 40px;
+  background-color: #e8f4f8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+    color: #0090C1;
+  }
+`;
+
+const ContactInfoText = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+const ContactLabel = styled.span`
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+`;
+
+const ContactValue = styled.span`
+  font-size: 15px;
+  color: #333;
+  font-weight: 400;
+`;
+
+const RightSection = styled.div`
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+`;
+
+const FormHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 30px;
 `;
 
-const ContactFormContainer = styled.div`
+const FormIcon = styled.div`
+  width: 48px;
+  height: 48px;
+  background-color: #e8f4f8;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  svg {
+    width: 24px;
+    height: 24px;
+    color: #0090C1;
+  }
+`;
+
+const FormHeaderText = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+const FormTitle = styled.h2`
+  color: #333;
+  font-size: 20px;
+  margin: 0;
+  font-weight: 600;
+`;
+
+const FormSubtitle = styled.p`
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+`;
+
+const ContactForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const FormRow = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: center;
+  gap: 16px;
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `;
 
-const ContactImage = styled.div`
-  img {
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-`;
-
-const ContactForm = styled.form`
-  background: #f9f9f9;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-`;
-
-const FormTitle = styled.h2`
-  color: #0090C1;
-  font-size: 24px;
-  margin-bottom: 20px;
-`;
-
-const FormGroup = styled.div`
-  margin-bottom: 20px;
-`;
-
 const Label = styled.label`
-  display: block;
   font-size: 14px;
-  margin-bottom: 8px;
+  font-weight: 500;
   color: #333;
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 12px;
+  padding: 12px 16px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 14px;
+  background: white;
+  transition: all 0.2s;
+  
+  &::placeholder {
+    color: #aaa;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #0090C1;
+    box-shadow: 0 0 0 3px rgba(0, 144, 193, 0.1);
+  }
 `;
 
 const Textarea = styled.textarea`
   width: 100%;
-  padding: 12px;
+  padding: 12px 16px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 14px;
   min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+  background: white;
+  transition: all 0.2s;
+  
+  &::placeholder {
+    color: #aaa;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #0090C1;
+    box-shadow: 0 0 0 3px rgba(0, 144, 193, 0.1);
+  }
 `;
 
 const SubmitButton = styled.button`
   background-color: #0090C1;
   color: white;
   border: none;
-  padding: 12px 20px;
-  border-radius: 4px;
-  font-size: 16px;
+  padding: 14px 24px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
   width: 100%;
-  transition: background-color 0.3s;
+  transition: all 0.2s;
   
   &:hover {
-    background-color: #007a9e;
+    background-color: #007aa3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 144, 193, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
 `;
 
@@ -152,7 +295,6 @@ const ContactPage: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // Here you would normally send the data to your backend
     alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
     setFormData({
       name: '',
@@ -165,117 +307,153 @@ const ContactPage: React.FC = () => {
 
   return (
     <PageContainer>
-      <PageTitle>Entre em Contato</PageTitle>
-      
-      <ContactFormContainer>
-        <ContactImage>
-          <img src="/public/imagens/contato.jpg" alt="Atendimento ao cliente" />
-        </ContactImage>
+      <ContentGrid>
+        <LeftSection>
+          <div>
+            <PageTitle>Entre em contato</PageTitle>
+            <PageSubtitle>
+              Estamos aqui para ajudar. Envie sua mensagem e responderemos o mais breve possível
+            </PageSubtitle>
+          </div>
+          
+          <ContactInfoList>
+            <ContactInfoItem>
+              <IconWrapper>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </IconWrapper>
+              <ContactInfoText>
+                <ContactLabel>Email</ContactLabel>
+                <ContactValue>contato@imoveis.com</ContactValue>
+              </ContactInfoText>
+            </ContactInfoItem>
+            
+            <ContactInfoItem>
+              <IconWrapper>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+              </IconWrapper>
+              <ContactInfoText>
+                <ContactLabel>Telefone</ContactLabel>
+                <ContactValue>(00) 0000-0000</ContactValue>
+              </ContactInfoText>
+            </ContactInfoItem>
+            
+            <ContactInfoItem>
+              <IconWrapper>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </IconWrapper>
+              <ContactInfoText>
+                <ContactLabel>Endereço</ContactLabel>
+                <ContactValue>Rua Exemplo, 123</ContactValue>
+                <ContactValue>Centro, Cidade - UF</ContactValue>
+              </ContactInfoText>
+            </ContactInfoItem>
+            
+            <ContactInfoItem>
+              <IconWrapper>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </IconWrapper>
+              <ContactInfoText>
+                <ContactLabel>Horário</ContactLabel>
+                <ContactValue>Seg - Sex: 8h às 18h</ContactValue>
+                <ContactValue>Sábado: 9h às 13h</ContactValue>
+              </ContactInfoText>
+            </ContactInfoItem>
+          </ContactInfoList>
+        </LeftSection>
         
-        <ContactForm onSubmit={handleSubmit}>
-          <FormTitle>Envie sua mensagem</FormTitle>
-          
-          <FormGroup>
-            <Label htmlFor="name">Nome completo</Label>
-            <Input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
-          
-          <FormGroup>
-            <Label htmlFor="email">E-mail</Label>
-            <Input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
-          
-          <FormGroup>
-            <Label htmlFor="phone">Telefone</Label>
-            <Input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
-          
-          <FormGroup>
-            <Label htmlFor="subject">Assunto</Label>
-            <Input
-              type="text"
-              id="subject"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
-          
-          <FormGroup>
-            <Label htmlFor="message">Mensagem</Label>
-            <Textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
-          
-          <SubmitButton type="submit">Enviar Mensagem</SubmitButton>
-        </ContactForm>
-      </ContactFormContainer>
-      
-      <ContactInfoSection>
-        <ContactInfoTitle>Outras formas de contato</ContactInfoTitle>
-        
-        <ContactInfoGrid>
-          <ContactCard>
-            <ContactIcon>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+        <RightSection>
+          <FormHeader>
+            <FormIcon>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
               </svg>
-            </ContactIcon>
-            <ContactTitle>Endereço</ContactTitle>
-            <ContactDetail>Av. Paulista, 1000</ContactDetail>
-            <ContactDetail>São Paulo, SP</ContactDetail>
-          </ContactCard>
+            </FormIcon>
+            <FormHeaderText>
+              <FormTitle>Envie uma mensagem</FormTitle>
+              <FormSubtitle>Preencha o formulário abaixo</FormSubtitle>
+            </FormHeaderText>
+          </FormHeader>
           
-          <ContactCard>
-            <ContactIcon>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
-              </svg>
-            </ContactIcon>
-            <ContactTitle>Telefone</ContactTitle>
-            <ContactDetail>(11) 2222-3333</ContactDetail>
-            <ContactDetail>(11) 99999-8888</ContactDetail>
-          </ContactCard>
-          
-          <ContactCard>
-            <ContactIcon>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
-              </svg>
-            </ContactIcon>
-            <ContactTitle>E-mail</ContactTitle>
-            <ContactDetail>contato@valugar.com.br</ContactDetail>
-            <ContactDetail>suporte@valugar.com.br</ContactDetail>
-          </ContactCard>
-        </ContactInfoGrid>
-      </ContactInfoSection>
+          <ContactForm onSubmit={handleSubmit}>
+            <FormGroup>
+              <Label htmlFor="name">Nome completo</Label>
+              <Input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Digite seu nome completo"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+            
+            <FormRow>
+              <FormGroup>
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="seu@email.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </FormGroup>
+              
+              <FormGroup>
+                <Label htmlFor="phone">Telefone</Label>
+                <Input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="(00) 00000-0000"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </FormGroup>
+            </FormRow>
+            
+            <FormGroup>
+              <Label htmlFor="subject">Assunto</Label>
+              <Input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="Como podemos ajudar?"
+                value={formData.subject}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+            
+            <FormGroup>
+              <Label htmlFor="message">Mensagem</Label>
+              <Textarea
+                id="message"
+                name="message"
+                placeholder="Descreva sua dúvida ou sugestão"
+                value={formData.message}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+            
+            <SubmitButton type="submit">Enviar mensagem</SubmitButton>
+          </ContactForm>
+        </RightSection>
+      </ContentGrid>
     </PageContainer>
   );
 };

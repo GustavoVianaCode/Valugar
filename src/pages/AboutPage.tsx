@@ -1,253 +1,472 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const PageContainer = styled.div`
   max-width: 1440px;
   margin: 0 auto;
-  padding: 40px 20px;
+  background-color: white;
 `;
 
-const PageTitle = styled.h1`
-  color: #0090C1;
-  font-size: 28px;
-  margin-bottom: 30px;
-`;
-
-const AboutGrid = styled.div`
+const HeroSection = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 40px;
   align-items: center;
+  
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    padding: 60px 20px;
+    gap: 40px;
+  }
+`;
+
+const HeroContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`;
+
+const HeroTitle = styled.h1`
+  color: #0090C1;
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
+`;
+
+const HeroDescription = styled.p`
+  color: #666;
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 0;
+`;
+
+const CTAButton = styled(Link)`
+  background-color: #0090C1;
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  transition: all 0.2s;
+  
+  &:hover {
+    background-color: #007aa3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 144, 193, 0.3);
+  }
+`;
+
+const StatsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 40px;
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 `;
 
-const AboutImage = styled.div`
+const StatItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const StatNumber = styled.div`
+  font-size: 42px;
+  font-weight: 700;
+  color: #FFB800;
+  
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
+`;
+
+const StatLabel = styled.div`
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+`;
+
+const HeroImageContainer = styled.div`
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  background-color: #2F96CA;
+  
   img {
     width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    height: auto;
+    display: block;
   }
 `;
 
-const AboutContent = styled.div`
-  p {
-    margin-bottom: 20px;
-    line-height: 1.6;
-    color: #444;
+const ValuesSection = styled.section`
+  background-color: #f8f9fa;
+  padding: 80px 40px;
+  
+  @media (max-width: 768px) {
+    padding: 60px 20px;
   }
 `;
 
-const AboutSection = styled.section`
-  margin-top: 60px;
+const ValuesContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
 const SectionTitle = styled.h2`
   color: #0090C1;
-  font-size: 24px;
-  margin-bottom: 20px;
-`;
-
-const TeamGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  
-  @media (max-width: 992px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (max-width: 576px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const TeamMember = styled.div`
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-`;
-
-const MemberImage = styled.div`
-  height: 200px;
-  background-color: #ddd;
-  
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
-const MemberInfo = styled.div`
-  padding: 20px;
+  font-size: 36px;
+  font-weight: 700;
   text-align: center;
-`;
-
-const MemberName = styled.h3`
-  font-size: 18px;
-  margin-bottom: 5px;
-  color: #333;
-`;
-
-const MemberRole = styled.p`
-  color: #0090C1;
-  font-weight: 500;
-  margin-bottom: 10px;
-`;
-
-const MemberBio = styled.p`
-  font-size: 14px;
-  color: #666;
-  line-height: 1.5;
+  margin-bottom: 60px;
+  
+  @media (max-width: 768px) {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
 `;
 
 const ValuesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 40px;
   
-  @media (max-width: 768px) {
+  @media (max-width: 968px) {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
 `;
 
 const ValueCard = styled.div`
-  background: #f9f9f9;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background: white;
+  padding: 40px 32px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: all 0.3s;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
 `;
 
 const ValueIcon = styled.div`
-  color: #0090C1;
-  font-size: 32px;
-  margin-bottom: 15px;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+  background-color: #e8f4f8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg {
+    width: 32px;
+    height: 32px;
+    color: #0090C1;
+  }
 `;
 
 const ValueTitle = styled.h3`
-  font-size: 18px;
-  margin-bottom: 10px;
-  color: #333;
+  color: #0090C1;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
 `;
 
 const ValueDescription = styled.p`
   color: #666;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+`;
+
+const SolutionSection = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 40px;
+  align-items: center;
+  
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    padding: 60px 20px;
+    gap: 40px;
+  }
+`;
+
+const SolutionImageContainer = styled.div`
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  background-color: #2F96CA;
+  
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+`;
+
+const SolutionContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`;
+
+const SolutionTitle = styled.h2`
+  color: #333;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.3;
+  
+  @media (max-width: 768px) {
+    font-size: 26px;
+  }
+`;
+
+const SolutionDescription = styled.p`
+  color: #666;
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 0;
+`;
+
+const SolutionList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const SolutionListItem = styled.li`
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #333;
+  font-size: 15px;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+    color: #0090C1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+`;
+
+const CTASection = styled.section`
+  background: linear-gradient(135deg, #0090C1 0%, #007aa3 100%);
+  padding: 80px 40px;
+  text-align: center;
+  
+  @media (max-width: 768px) {
+    padding: 60px 20px;
+  }
+`;
+
+const CTAContainer = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+`;
+
+const CTATitle = styled.h2`
+  color: white;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+`;
+
+const CTADescription = styled.p`
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  margin: 0 0 32px 0;
+  line-height: 1.6;
+`;
+
+const CTAButtonYellow = styled(Link)`
+  background-color: #FFD700;
+  color: #333;
+  border: none;
+  padding: 16px 40px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  
+  &:hover {
+    background-color: #FFC700;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+  }
 `;
 
 const AboutPage: React.FC = () => {
   return (
     <PageContainer>
-      <PageTitle>Sobre a Valugar</PageTitle>
-      
-      <AboutGrid>
-        <AboutImage>
-          <img src="/public/imagens/sobre.jpg" alt="Equipe Valugar" />
-        </AboutImage>
+      <HeroSection>
+        <HeroContent>
+          <HeroTitle>Sobre nós</HeroTitle>
+          <HeroDescription>
+            Facilitar o processo de busca e locação de imóveis, conectando proprietários
+            e inquilinos de forma simples, segura e eficiente. Acreditamos que encontrar
+            o lar perfeito não precisa ser complicado.
+          </HeroDescription>
+          <CTAButton to="/anunciar">Começar agora</CTAButton>
+          
+          <StatsContainer>
+            <StatItem>
+              <StatNumber>1000+</StatNumber>
+              <StatLabel>Imóveis Cadastrados</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatNumber>500+</StatNumber>
+              <StatLabel>Contratos realizados</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatNumber>95%</StatNumber>
+              <StatLabel>Satisfação dos clientes</StatLabel>
+            </StatItem>
+          </StatsContainer>
+        </HeroContent>
         
-        <AboutContent>
-          <p>A Valugar é uma empresa imobiliária fundada em 2015 com a missão de transformar a experiência de alugar e comprar imóveis no Brasil. Nossa plataforma conecta proprietários e inquilinos/compradores de forma simples e segura.</p>
+        <HeroImageContainer>
+          <img src="/imagens/couple-keys.jpg" alt="Casal feliz com chaves do imóvel" />
+        </HeroImageContainer>
+      </HeroSection>
+
+      <ValuesSection>
+        <ValuesContainer>
+          <SectionTitle>Nosso valores</SectionTitle>
           
-          <p>Com uma equipe especializada e um rigoroso processo de seleção de imóveis, garantimos qualidade e transparência em todas as negociações. Nosso compromisso é oferecer um serviço personalizado, onde cada cliente é único e suas necessidades são atendidas com dedicação e profissionalismo.</p>
-          
-          <p>Utilizamos tecnologia avançada para facilitar o processo de busca e locação, proporcionando uma experiência intuitiva e eficiente para todos os nossos usuários. Nosso objetivo é simplificar o mercado imobiliário, tornando-o mais acessível e transparente para todos.</p>
-        </AboutContent>
-      </AboutGrid>
-      
-      <AboutSection>
-        <SectionTitle>Nossos Valores</SectionTitle>
+          <ValuesGrid>
+            <ValueCard>
+              <ValueIcon>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                </svg>
+              </ValueIcon>
+              <ValueTitle>Simplicidade</ValueTitle>
+              <ValueDescription>
+                Tornamos o processo de locação intuitivo e descomplicado para todos
+              </ValueDescription>
+            </ValueCard>
+            
+            <ValueCard>
+              <ValueIcon>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </ValueIcon>
+              <ValueTitle>Confiança</ValueTitle>
+              <ValueDescription>
+                Priorizamos a segurança e transparência em todas as transações
+              </ValueDescription>
+            </ValueCard>
+            
+            <ValueCard>
+              <ValueIcon>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+              </ValueIcon>
+              <ValueTitle>Excelência</ValueTitle>
+              <ValueDescription>
+                Buscamos sempre superar expectativas e entregar o melhor serviço
+              </ValueDescription>
+            </ValueCard>
+          </ValuesGrid>
+        </ValuesContainer>
+      </ValuesSection>
+
+      <SolutionSection>
+        <SolutionImageContainer>
+          <img src="/imagens/couple-keys.jpg" alt="Solução Valugar" />
+        </SolutionImageContainer>
         
-        <ValuesGrid>
-          <ValueCard>
-            <ValueIcon>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708l-2 2zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708l-2 2zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+        <SolutionContent>
+          <SolutionTitle>A solução simples de um problema complexo.</SolutionTitle>
+          <SolutionDescription>
+            Nascemos da necessidade de simplificar o mercado imobiliário. Percebemos
+            que encontrar um imóvel ideal era um processo demorado, confuso e muitas
+            vezes frustrante.
+          </SolutionDescription>
+          
+          <SolutionList>
+            <SolutionListItem>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-            </ValueIcon>
-            <ValueTitle>Transparência</ValueTitle>
-            <ValueDescription>Acreditamos que relações de confiança são construídas com base em transparência. Por isso, prezamos por clareza em todas as informações e condições dos imóveis.</ValueDescription>
-          </ValueCard>
-          
-          <ValueCard>
-            <ValueIcon>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+              Facilitando a conexão
+            </SolutionListItem>
+            <SolutionListItem>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-            </ValueIcon>
-            <ValueTitle>Inovação</ValueTitle>
-            <ValueDescription>Buscamos constantemente novas tecnologias e soluções para melhorar a experiência de nossos clientes e tornar o processo de locação e compra mais eficiente.</ValueDescription>
-          </ValueCard>
-          
-          <ValueCard>
-            <ValueIcon>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+              Mais conforto, privacidade e segurança
+            </SolutionListItem>
+            <SolutionListItem>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-            </ValueIcon>
-            <ValueTitle>Compromisso</ValueTitle>
-            <ValueDescription>Nosso compromisso é com a satisfação dos nossos clientes. Trabalhamos incansavelmente para garantir que suas necessidades sejam atendidas com excelência.</ValueDescription>
-          </ValueCard>
-        </ValuesGrid>
-      </AboutSection>
-      
-      <AboutSection>
-        <SectionTitle>Nossa Equipe</SectionTitle>
-        
-        <TeamGrid>
-          <TeamMember>
-            <MemberImage>
-              {/* Placeholder for team member image */}
-              <div style={{ height: '100%', background: '#e0e0e0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="#999" viewBox="0 0 16 16">
-                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                </svg>
-              </div>
-            </MemberImage>
-            <MemberInfo>
-              <MemberName>Ana Silva</MemberName>
-              <MemberRole>CEO</MemberRole>
-              <MemberBio>Com 15 anos de experiência no mercado imobiliário, Ana fundou a Valugar com a visão de transformar o setor através da tecnologia.</MemberBio>
-            </MemberInfo>
-          </TeamMember>
-          
-          <TeamMember>
-            <MemberImage>
-              {/* Placeholder for team member image */}
-              <div style={{ height: '100%', background: '#e0e0e0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="#999" viewBox="0 0 16 16">
-                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                </svg>
-              </div>
-            </MemberImage>
-            <MemberInfo>
-              <MemberName>Carlos Mendes</MemberName>
-              <MemberRole>Diretor de Operações</MemberRole>
-              <MemberBio>Responsável por garantir que todos os processos operacionais da Valugar funcionem com eficiência e excelência.</MemberBio>
-            </MemberInfo>
-          </TeamMember>
-          
-          <TeamMember>
-            <MemberImage>
-              {/* Placeholder for team member image */}
-              <div style={{ height: '100%', background: '#e0e0e0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="#999" viewBox="0 0 16 16">
-                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                </svg>
-              </div>
-            </MemberImage>
-            <MemberInfo>
-              <MemberName>Mariana Santos</MemberName>
-              <MemberRole>Diretora de Marketing</MemberRole>
-              <MemberBio>Especialista em marketing digital, Mariana é responsável por todas as estratégias de comunicação e aquisição de clientes.</MemberBio>
-            </MemberInfo>
-          </TeamMember>
-        </TeamGrid>
-      </AboutSection>
+              A tecnologia do seu favor
+            </SolutionListItem>
+            <SolutionListItem>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              Busque e anuncie, tudo no mesmo lugar
+            </SolutionListItem>
+          </SolutionList>
+        </SolutionContent>
+      </SolutionSection>
+
+      <CTASection>
+        <CTAContainer>
+          <CTATitle>Pronto para começar?</CTATitle>
+          <CTADescription>
+            Venha fazer parte dessa inovação! Anuncie agora GRÁTIS e receba propostas imediatas.
+          </CTADescription>
+          <CTAButtonYellow to="/anunciar">Anunciar meu imóvel</CTAButtonYellow>
+        </CTAContainer>
+      </CTASection>
     </PageContainer>
   );
 };
