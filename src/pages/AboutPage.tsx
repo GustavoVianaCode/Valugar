@@ -122,10 +122,10 @@ const HeroImageContainer = styled.div`
 
 const ValuesSection = styled.section`
   background-color: #f8f9fa;
-  padding: 80px 40px;
+  padding: 40px 40px;
   
   @media (max-width: 768px) {
-    padding: 60px 20px;
+    padding: 30px 20px;
   }
 `;
 
@@ -139,11 +139,11 @@ const SectionTitle = styled.h2`
   font-size: 36px;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   
   @media (max-width: 768px) {
     font-size: 28px;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
   }
 `;
 
@@ -284,12 +284,15 @@ const SolutionListItem = styled.li`
 `;
 
 const CTASection = styled.section`
-  background: linear-gradient(135deg, #0090C1 0%, #007aa3 100%);
+  background: linear-gradient(to bottom, #3098CD 0%, #1E72A4 100%);
   padding: 80px 40px;
   text-align: center;
+  border-radius: 16px;
+  margin: 0 40px 40px 40px;
   
   @media (max-width: 768px) {
     padding: 60px 20px;
+    margin: 0 20px 20px 20px;
   }
 `;
 
@@ -317,7 +320,7 @@ const CTADescription = styled.p`
 `;
 
 const CTAButtonYellow = styled(Link)`
-  background-color: #FFD700;
+  background-color: #FDCE5C;
   color: #333;
   border: none;
   padding: 16px 40px;
@@ -332,9 +335,9 @@ const CTAButtonYellow = styled(Link)`
   transition: all 0.2s;
   
   &:hover {
-    background-color: #FFC700;
+    background-color: #FCC04A;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    box-shadow: 0 8px 20px rgba(253, 206, 92, 0.4);
   }
 `;
 
