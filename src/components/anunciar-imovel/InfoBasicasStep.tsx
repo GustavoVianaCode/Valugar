@@ -285,12 +285,13 @@ const InfoBasicasStep: React.FC<InfoBasicasStepProps> = ({
           
           <AmenitiesGrid>
             <AmenityOption 
-              active={!hasGarage}
+              active={hasGarage}
               onClick={() => setHasGarage && setHasGarage(!hasGarage)}
             >
               <AmenityIcon>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.5l4 4a5.5 5.5 0 11-8 0z" />
+                  <line x1="6" y1="17" x2="18" y2="5" strokeWidth={2.5} stroke="currentColor" strokeLinecap="round"/>
                 </svg>
               </AmenityIcon>
               <AmenityText>Não paga água</AmenityText>
@@ -302,7 +303,8 @@ const InfoBasicasStep: React.FC<InfoBasicasStepProps> = ({
             >
               <AmenityIcon>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0h-.01M15 17a2 2 0 104 0m-4 0h-.01" />
                 </svg>
               </AmenityIcon>
               <AmenityText>Possui garagem</AmenityText>
@@ -313,8 +315,12 @@ const InfoBasicasStep: React.FC<InfoBasicasStepProps> = ({
               onClick={() => setAcceptsPets && setAcceptsPets(!acceptsPets)}
             >
               <AmenityIcon>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="8" cy="8" r="2.2" />
+                  <circle cx="16" cy="8" r="2.2" />
+                  <circle cx="5" cy="11.5" r="2" />
+                  <circle cx="19" cy="11.5" r="2" />
+                  <path d="M12 13c-2.5 0-4.5 1.5-5 4-.2 1 .5 2 1.5 2h7c1 0 1.7-1 1.5-2-.5-2.5-2.5-4-5-4z" />
                 </svg>
               </AmenityIcon>
               <AmenityText>Aceita pet</AmenityText>
@@ -338,7 +344,7 @@ const InfoBasicasStep: React.FC<InfoBasicasStepProps> = ({
             >
               <AmenityIcon>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
               </AmenityIcon>
               <AmenityText>Imóvel fachada</AmenityText>
@@ -362,8 +368,10 @@ const InfoBasicasStep: React.FC<InfoBasicasStepProps> = ({
               onClick={() => setHasPool && setHasPool(!hasPool)}
             >
               <AmenityIcon>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 17c1.333 0 2-.667 3-2s2-2 3-2 1.667.667 2 2 1.667 2 3 2 2-.667 3-2" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13c1.333 0 2-.667 3-2s2-2 3-2 1.667.667 2 2 1.667 2 3 2 2-.667 3-2" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 9c1.333 0 2-.667 3-2s2-2 3-2 1.667.667 2 2 1.667 2 3 2 2-.667 3-2" />
                 </svg>
               </AmenityIcon>
               <AmenityText>Possui piscina</AmenityText>

@@ -128,7 +128,7 @@ export const CurrencyPrefix = styled.span`
 
 export const CurrencyInput = styled.input`
   width: 100%;
-  padding: 10px 15px 10px 30px;
+  padding: 10px 15px 10px 45px;
   border: 1px solid ${props => props.theme.colors.borderDark || props.theme.colors.border};
   border-radius: ${props => props.theme.borderRadius.small || props.theme.borderRadius.sm || '4px'};
   font-size: ${props => props.theme.fontSize?.regular || '16px'};

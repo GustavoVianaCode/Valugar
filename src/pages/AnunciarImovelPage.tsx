@@ -76,7 +76,6 @@ const AnunciarImovelPage: React.FC = () => {
   // Etapa 4 - Fotos
   const [photos, setPhotos] = useState<File[]>([]);
   const [video, setVideo] = useState<File | null>(null);
-  const [wantsFeatured, setWantsFeatured] = useState<boolean>(false);
 
   // Função para navegar para a próxima etapa
   const nextStep = () => {
@@ -254,9 +253,9 @@ const AnunciarImovelPage: React.FC = () => {
             setRent={setRent}
             additionalCosts={additionalCosts}
             setAdditionalCosts={setAdditionalCosts}
-            wantsFeatured={wantsFeatured}
-            hasGarage={hasOceanView}
-            setHasGarage={setHasOceanView}
+            wantsFeatured={adFormat === 'completo'}
+            hasGarage={hasGarage}
+            setHasGarage={setHasGarage}
             acceptsPets={acceptsPets}
             setAcceptsPets={setAcceptsPets}
             hasPool={hasPool}
@@ -265,8 +264,8 @@ const AnunciarImovelPage: React.FC = () => {
             setHasCeramicFloor={setHasCeramicFloor}
             isFurnished={isFurnished}
             setIsFurnished={setIsFurnished}
-            hasOceanView={hasGarage}
-            setHasOceanView={setHasGarage}
+            hasOceanView={hasOceanView}
+            setHasOceanView={setHasOceanView}
             hasGrill={hasGrill}
             setHasGrill={setHasGrill}
             hasSolarPanel={hasSolarPanel}
@@ -297,7 +296,7 @@ const AnunciarImovelPage: React.FC = () => {
       case 'fotos':
         return (
           <FotosStep
-            wantsFeatured={wantsFeatured}
+            wantsFeatured={adFormat === 'completo'}
             photos={photos}
             setPhotos={setPhotos}
             video={video}
