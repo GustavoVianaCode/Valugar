@@ -47,6 +47,12 @@ export const StepIcon = styled.div<{ active?: boolean; completed?: boolean; clic
   cursor: ${props => props.clickable ? 'pointer' : 'default'};
   transition: all 0.2s ease;
   
+  svg {
+    width: 24px;
+    height: 24px;
+    stroke: ${props => props.active ? props.theme.colors.white : props.completed ? props.theme.colors.primary : props.theme.colors.textLight};
+  }
+  
   &:hover {
     background-color: ${props => props.clickable ? props.theme.colors.primaryLight : props.active ? props.theme.colors.primary : props.completed ? props.theme.colors.primaryLight : props.theme.colors.backgroundLight};
     border-color: ${props => props.clickable ? props.theme.colors.primary : props.active || props.completed ? props.theme.colors.primary : props.theme.colors.border};

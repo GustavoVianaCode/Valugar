@@ -100,7 +100,7 @@ const EntrarButton = styled(Link)<{ primary?: boolean; isTransparent: boolean }>
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 144, 193, 0.25);
-    background: ${props => props.primary ? '#007aa3' : (props.isTransparent ? 'rgba(255,255,255,0.1)' : 'rgba(0,144,193,0.1)')};
+    background: ${props => props.primary ? '#00b8e6' : (props.isTransparent ? 'rgba(255,255,255,0.1)' : 'rgba(0,144,193,0.1)')};
   }
   
   @media (max-width: 768px) {

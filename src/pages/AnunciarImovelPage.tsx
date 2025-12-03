@@ -51,6 +51,8 @@ const AnunciarImovelPage: React.FC = () => {
   const [isFurnished, setIsFurnished] = useState<boolean>(false);
   const [hasCeramicFloor, setHasCeramicFloor] = useState<boolean>(false);
   const [hasPool, setHasPool] = useState<boolean>(false);
+  const [hasOceanView, setHasOceanView] = useState<boolean>(false);
+  const [hasGrill, setHasGrill] = useState<boolean>(false);
   const [hasYard, setHasYard] = useState<boolean>(false);
   const [hasSolarPanel, setHasSolarPanel] = useState<boolean>(false);
   
@@ -125,7 +127,7 @@ const AnunciarImovelPage: React.FC = () => {
   };
 
   const validateLocation = (): boolean => {
-    if (!cep || !street || !number || !neighborhood || !city) return false;
+    if (!cep || !state || !city || !street || !number || !neighborhood) return false;
     return true;
   };
 
@@ -253,16 +255,20 @@ const AnunciarImovelPage: React.FC = () => {
             additionalCosts={additionalCosts}
             setAdditionalCosts={setAdditionalCosts}
             wantsFeatured={wantsFeatured}
-            hasGarage={hasGarage}
-            setHasGarage={setHasGarage}
+            hasGarage={hasOceanView}
+            setHasGarage={setHasOceanView}
             acceptsPets={acceptsPets}
             setAcceptsPets={setAcceptsPets}
-            isFurnished={isFurnished}
-            setIsFurnished={setIsFurnished}
-            hasCeramicFloor={hasCeramicFloor}
-            setHasCeramicFloor={setHasCeramicFloor}
             hasPool={hasPool}
             setHasPool={setHasPool}
+            hasCeramicFloor={hasCeramicFloor}
+            setHasCeramicFloor={setHasCeramicFloor}
+            isFurnished={isFurnished}
+            setIsFurnished={setIsFurnished}
+            hasOceanView={hasGarage}
+            setHasOceanView={setHasGarage}
+            hasGrill={hasGrill}
+            setHasGrill={setHasGrill}
             hasSolarPanel={hasSolarPanel}
             setHasSolarPanel={setHasSolarPanel}
           />
@@ -271,6 +277,8 @@ const AnunciarImovelPage: React.FC = () => {
       case 'localizacao':
         return (
           <LocalizacaoStep 
+            cep={cep}
+            setCep={setCep}
             state={state}
             setState={setState}
             city={city}
@@ -295,7 +303,9 @@ const AnunciarImovelPage: React.FC = () => {
             video={video}
             setVideo={setVideo}
           />
-        );      default:
+        );
+        
+      default:
         return null;
     }
   };

@@ -419,8 +419,19 @@ const ServiceCard = styled.div<{ featured?: boolean }>`
 `;
 
 const ServiceIcon = styled.div<{ featured?: boolean }>`
-  font-size: ${props => props.featured ? '52px' : '40px'};
-  color: ${props => props.featured ? 'white' : '#0090C1'};
+  width: ${props => props.featured ? '72px' : '56px'};
+  height: ${props => props.featured ? '72px' : '56px'};
+  background-color: ${props => props.featured ? 'rgba(255, 255, 255, 0.2)' : '#e8f4f8'};
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg {
+    width: ${props => props.featured ? '36px' : '28px'};
+    height: ${props => props.featured ? '36px' : '28px'};
+    color: ${props => props.featured ? 'white' : '#0090C1'};
+  }
 `;
 
 const HomePage = () => {
@@ -505,9 +516,9 @@ const HomePage = () => {
           
           <CategoryCard>
             <IconCircle>
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M21 9.02c0 1.09-.89 1.98-1.98 1.98H4.98C3.89 11 3 10.11 3 9.02H1c0 1.66 1.34 3 3 3h0.02c.27 1.11 1.24 1.93 2.39 1.93H7v5c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2v-5h0.59c1.15 0 2.12-.82 2.39-1.93H20c1.66 0 3-1.34 3-3h-2z"/>
-                <path d="M18 4H6v5h12V4zm-5 12h-2v-2h2v2z"/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                <rect x="9" y="14" width="6" height="2" opacity="0.5"/>
               </svg>
             </IconCircle>
             <span>Kitnet</span>
@@ -515,8 +526,8 @@ const HomePage = () => {
           
           <CategoryCard>
             <IconCircle>
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20 9V7c0-1.1-.9-2-2-2h-3c0-1.66-1.34-3-3-3S9 3.34 9 5H6c-1.1 0-2 .9-2 2v2c-1.66 0-3 1.34-3 3s1.34 3 3 3v5c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-5c1.66 0 3-1.34 3-3s-1.34-3-3-3zm-2 0h-5V7h5v2zm-6-4c.55 0 1 .45 1 1h-2c0-.55.45-1 1-1zM9 9H4V7h5v2zm9 11H6v-6h12v6z"/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 9.556V3h-2v2H6V3H4v6.557C2.81 10.25 2 11.526 2 13v4a1 1 0 001 1h1v4h2v-4h12v4h2v-4h1a1 1 0 001-1v-4c0-1.474-.811-2.75-2-3.444zM11 9H6V7h5v2zm7 0h-5V7h5v2z"/>
               </svg>
             </IconCircle>
             <span>Quarto</span>
@@ -546,7 +557,11 @@ const HomePage = () => {
         <ServicesGrid>
           {/* Card azul grande */}
           <ServiceCard featured>
-            <ServiceIcon featured>🏠</ServiceIcon>
+            <ServiceIcon featured>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+            </ServiceIcon>
             <h3>Anuncie rápido, anuncie sem complicação.</h3>
             <p>
               Encontre o inquilino perfeito em tempo recorde! Anuncie agora GRÁTIS e receba propostas imediatas.
@@ -557,25 +572,41 @@ const HomePage = () => {
           {/* Grid 2x2 de cards informativos */}
           <InfoCardsGrid>
             <ServiceCard>
-              <ServiceIcon>🚀</ServiceIcon>
+              <ServiceIcon>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </ServiceIcon>
               <h3>Novo negócio?</h3>
               <p>Encontre o aluguel ideal para essa nova etapa da sua vida</p>
             </ServiceCard>
             
             <ServiceCard>
-              <ServiceIcon>👨‍👩‍👧‍👦</ServiceIcon>
+              <ServiceIcon>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </ServiceIcon>
               <h3>A família cresceu?</h3>
               <p>Busque a residência ideal para sua família no Valugar</p>
             </ServiceCard>
             
             <ServiceCard>
-              <ServiceIcon>💬</ServiceIcon>
+              <ServiceIcon>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
+              </ServiceIcon>
               <h3>Entre em contato</h3>
               <p>Nossa equipe está disponível para te atender 24h por dia!</p>
             </ServiceCard>
             
             <ServiceCard>
-              <ServiceIcon>👥</ServiceIcon>
+              <ServiceIcon>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </ServiceIcon>
               <h3>Quem somos</h3>
               <p>A Valugar surge como uma forma de facilitar a vida daqueles que buscam im...</p>
             </ServiceCard>

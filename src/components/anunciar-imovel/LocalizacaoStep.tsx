@@ -11,6 +11,8 @@ import {
 } from '../../styles/components/FormStyles';
 
 interface LocalizacaoStepProps {
+  cep: string;
+  setCep: (cep: string) => void;
   state: string;
   setState: (state: string) => void;
   city: string;
@@ -26,6 +28,8 @@ interface LocalizacaoStepProps {
 }
 
 const LocalizacaoStep: React.FC<LocalizacaoStepProps> = ({
+  cep,
+  setCep,
   state,
   setState,
   city,
@@ -43,6 +47,21 @@ const LocalizacaoStep: React.FC<LocalizacaoStepProps> = ({
     <FormSection>
       <FormSectionTitle>Onde seu imóvel está localizado</FormSectionTitle>
       <FormSectionSubtitle>Essas informações são a chave para atrair o interessado ideal para o seu imóvel.</FormSectionSubtitle>
+      
+      <InputGroup>
+        <InputLabel>CEP</InputLabel>
+        <TextInput 
+          type="text"
+          placeholder="00000-000"
+          value={cep}
+          onChange={(e) => {
+            const value = e.target.value.replace(/\D/g, '');
+            const formatted = value.length > 5 ? `${value.slice(0, 5)}-${value.slice(5, 8)}` : value;
+            setCep(formatted);
+          }}
+          maxLength={9}
+        />
+      </InputGroup>
       
       <InputGrid>
         <InputGroup>

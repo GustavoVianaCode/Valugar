@@ -81,6 +81,15 @@ export const PropertyTypeOption = styled.div<{ active?: boolean }>`
 export const PropertyOptionIcon = styled.div`
   font-size: 24px;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg {
+    width: 32px;
+    height: 32px;
+    color: ${props => props.theme.colors.primary};
+  }
 `;
 
 export const PropertyOptionText = styled.span`
@@ -151,6 +160,15 @@ export const AmenityOption = styled.div<{ active?: boolean }>`
 export const AmenityIcon = styled.div`
   font-size: 24px;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg {
+    width: 28px;
+    height: 28px;
+    color: ${props => props.theme.colors.primary};
+  }
 `;
 
 export const AmenityText = styled.span`

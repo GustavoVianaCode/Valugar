@@ -22,6 +22,16 @@ export const PhotoUploadIcon = styled.div`
   font-size: 40px;
   color: #aaa;
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg {
+    width: 48px;
+    height: 48px;
+    color: #aaa;
+    stroke: #aaa;
+  }
 `;
 
 export const PhotoUploadText = styled.p`
@@ -46,8 +56,16 @@ export const SelectPhotoButton = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   transition: all 0.2s ease;
+  
+  svg {
+    width: 18px;
+    height: 18px;
+    color: ${props => props.theme.colors.primary};
+    stroke: ${props => props.theme.colors.primary};
+  }
   
   &:hover {
     background-color: ${props => props.theme.colors.primaryLight};
