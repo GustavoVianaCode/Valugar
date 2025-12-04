@@ -13,6 +13,14 @@ export const PhotoUploadArea = styled.div`
   cursor: pointer;
   transition: all 0.2s ease;
   
+  @media (max-width: 768px) {
+    padding: 30px 16px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 24px 12px;
+  }
+  
   &:hover {
     border-color: ${props => props.theme.colors.primary};
   }
@@ -26,11 +34,21 @@ export const PhotoUploadIcon = styled.div`
   align-items: center;
   justify-content: center;
   
+  @media (max-width: 480px) {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+  
   svg {
     width: 48px;
     height: 48px;
     color: #aaa;
     stroke: #aaa;
+    
+    @media (max-width: 480px) {
+      width: 40px;
+      height: 40px;
+    }
   }
 `;
 
@@ -116,8 +134,14 @@ export const ContactOptionsGrid = styled.div`
   gap: 15px;
   margin: 30px 0;
   
+  @media (max-width: 968px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 20px 0;
   }
 `;
 

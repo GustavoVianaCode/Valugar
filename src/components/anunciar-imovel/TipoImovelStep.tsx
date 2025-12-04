@@ -43,8 +43,13 @@ const OptionsGrid = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   
+  @media (max-width: 768px) {
+    gap: 16px;
+  }
+  
   @media (max-width: 640px) {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 `;
 
@@ -60,6 +65,20 @@ const OptionCard = styled.button<{ selected: boolean }>`
   align-items: center;
   gap: 12px;
   text-align: center;
+  
+  @media (max-width: 768px) {
+    padding: 24px 20px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 20px 16px;
+    border-radius: 8px;
+    
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
   
   &:hover {
     border-color: #0090C1;

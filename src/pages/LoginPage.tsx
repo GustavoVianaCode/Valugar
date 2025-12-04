@@ -19,6 +19,17 @@ const LoginContainer = styled.div`
   padding: 40px;
   background-color: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  
+  @media (max-width: 768px) {
+    padding: 30px;
+    border-radius: 6px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 20px;
+    border: none;
+    box-shadow: none;
+  }
 `;
 
 const WelcomeTitle = styled.h1`

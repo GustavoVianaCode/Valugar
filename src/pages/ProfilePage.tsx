@@ -8,6 +8,14 @@ const ProfileContainer = styled.div`
   padding: 40px 20px;
   background-color: #f5f5f5;
   min-height: calc(100vh - 80px);
+  
+  @media (max-width: 768px) {
+    padding: 30px 16px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 20px 12px;
+  }
 `;
 
 const AvatarSection = styled.div`
@@ -29,6 +37,12 @@ const Avatar = styled.div`
   border: 4px solid white;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   
+  @media (max-width: 480px) {
+    width: 100px;
+    height: 100px;
+    border: 3px solid white;
+  }
+  
   img {
     width: 100%;
     height: 100%;
@@ -49,6 +63,17 @@ const InfoCard = styled.div`
   padding: 24px;
   margin-bottom: 30px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+  }
 `;
 
 const InfoHeader = styled.div`
@@ -247,6 +272,15 @@ const PropertyActions = styled.div`
   
   @media (max-width: 768px) {
     flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+    }
   }
 `;
 

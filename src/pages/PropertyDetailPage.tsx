@@ -335,6 +335,14 @@ const Container = styled.div`
   max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
+  
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
 `;
 
 const BackButton = styled.button`
@@ -360,6 +368,7 @@ const ContentWrapper = styled.div`
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 `;
 
@@ -378,6 +387,16 @@ const MainImage = styled.div`
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 15px;
+  
+  @media (max-width: 768px) {
+    height: 400px;
+    border-radius: 6px;
+  }
+  
+  @media (max-width: 480px) {
+    height: 280px;
+    margin-bottom: 10px;
+  }
 
   img {
     width: 100%;
@@ -419,6 +438,16 @@ const Thumbnails = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
 `;
 
 const Thumbnail = styled.div<{ active: boolean }>`
@@ -427,6 +456,16 @@ const Thumbnail = styled.div<{ active: boolean }>`
   overflow: hidden;
   cursor: pointer;
   border: 3px solid ${props => props.active ? props.theme.colors.primary : 'transparent'};
+  
+  @media (max-width: 768px) {
+    height: 100px;
+    border-radius: 6px;
+    border-width: 2px;
+  }
+  
+  @media (max-width: 480px) {
+    height: 80px;
+  }
 
   img {
     width: 100%;
@@ -444,6 +483,15 @@ const PropertyInfo = styled.div`
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 16px;
+    border-radius: 6px;
+  }
 
   h2 {
     font-size: 24px;
@@ -471,6 +519,16 @@ const Features = styled.div`
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   margin-bottom: 30px;
+  
+  @media (max-width: 768px) {
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 16px;
+    padding: 16px 0;
+  }
 `;
 
 const Feature = styled.div`
@@ -545,6 +603,14 @@ const RelatedProperties = styled.div`
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 16px;
+  }
 
   h3 {
     font-size: 20px;
@@ -557,6 +623,15 @@ const PropertiesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 `;
 
 const PropertyCard = styled.div`
