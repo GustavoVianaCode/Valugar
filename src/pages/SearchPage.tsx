@@ -79,6 +79,31 @@ const ResultsInfo = styled.div`
   margin-bottom: 20px;
 `;
 
+const FilterToggleButton = styled.button`
+  display: none;
+  width: 100%;
+  padding: 12px 20px;
+  background: #0090C1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  
+  &:hover {
+    background: #007aa3;
+  }
+  
+  @media (max-width: 968px) {
+    display: flex;
+  }
+`;
+
 const SearchContainer = styled.div`
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -90,11 +115,68 @@ const SearchContainer = styled.div`
   }
 `;
 
-const FilterSidebar = styled.div`
+const FilterOverlay = styled.div<{ isOpen: boolean }>`
+  display: none;
+  
+  @media (max-width: 968px) {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: ${props => props.isOpen ? '1' : '0'};
+    visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+    transition: all 0.3s;
+  }
+`;
+
+const FilterSidebar = styled.div<{ isOpen?: boolean }>`
   background: #fff;
   padding: 0;
   max-width: 280px;
   width: 100%;
+  
+  @media (max-width: 968px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 320px;
+    max-width: 85vw;
+    padding: 80px 24px 24px;
+    overflow-y: auto;
+    z-index: 1000;
+    transform: translateX(${props => props.isOpen ? '0' : '-100%'});
+    transition: transform 0.3s ease;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+  }
+`;
+
+const FilterCloseButton = styled.button`
+  display: none;
+  
+  @media (max-width: 968px) {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    color: #333;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      color: #0090C1;
+    }
+  }
 `;
 
 const FilterSection = styled.div`
@@ -238,6 +320,7 @@ const NoResults = styled.div`
 const SearchPage: React.FC = () => {
   const { searchProperties, getFeaturedProperties } = useProperties();
   const [locationSearch, setLocationSearch] = useState('');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   
   // Filters state
   const [announcementType, setAnnouncementType] = useState({
@@ -334,8 +417,18 @@ const SearchPage: React.FC = () => {
         }
       </ResultsInfo>
       
+      <FilterToggleButton onClick={() => setIsFilterOpen(true)}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M3 4h18M3 12h18M3 20h18"/>
+        </svg>
+        Filtros
+      </FilterToggleButton>
+      
+      <FilterOverlay isOpen={isFilterOpen} onClick={() => setIsFilterOpen(false)} />
+      
       <SearchContainer>
-        <FilterSidebar>
+        <FilterSidebar isOpen={isFilterOpen}>
+          <FilterCloseButton onClick={() => setIsFilterOpen(false)}>×</FilterCloseButton>
           <FilterSection>
             <FilterTitle>Tipo do anúncio</FilterTitle>
             <CheckboxGroup>

@@ -270,14 +270,22 @@ const CategoryGrid = styled.div`
   margin: 0 auto;
   padding: 0 40px;
   
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
   @media (max-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
   }
   
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     padding: 0 20px;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 12px;
   }
 `;
 
@@ -294,6 +302,18 @@ const CategoryCard = styled.button`
   transition: all 0.2s;
   text-decoration: none;
   min-height: 110px;
+  
+  @media (max-width: 768px) {
+    padding: 14px;
+    min-height: 95px;
+    gap: 8px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 12px;
+    min-height: 85px;
+    border-radius: 8px;
+  }
   
   &:hover {
     transform: translateY(-6px);

@@ -7,6 +7,21 @@ export const StepsContainer = styled.div`
   margin-bottom: 40px;
   position: relative;
   padding: 0 20px;
+  
+  @media (max-width: 768px) {
+    padding: 0 10px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 5px;
+  }
 `;
 
 export const StepConnector = styled.div`
@@ -47,6 +62,16 @@ export const StepIcon = styled.div<{ active?: boolean; completed?: boolean; clic
   cursor: ${props => props.clickable ? 'pointer' : 'default'};
   transition: all 0.2s ease;
   
+  @media (max-width: 768px) {
+    width: 48px;
+    height: 48px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 40px;
+    height: 40px;
+  }
+  
   svg {
     width: 24px;
     height: 24px;
@@ -65,6 +90,14 @@ export const StepLabel = styled.div`
   font-weight: 500;
   text-align: center;
   margin-bottom: 4px;
+  
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 11px;
+  }
 `;
 
 export const StepDescription = styled.div`
@@ -72,4 +105,8 @@ export const StepDescription = styled.div`
   color: ${props => props.theme.colors.textLight};
   text-align: center;
   max-width: 120px;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;

@@ -78,9 +78,14 @@ const StatsContainer = styled.div`
   gap: 40px;
   margin-top: 40px;
   
+  @media (max-width: 1024px) {
+    gap: 30px;
+  }
+  
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: 24px;
+    margin-top: 30px;
   }
 `;
 

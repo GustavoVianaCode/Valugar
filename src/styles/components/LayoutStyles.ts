@@ -9,6 +9,14 @@ export const PageWrapper = styled.div`
   background-color: ${props => props.theme.colors.background};
   max-width: 1200px;
   margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    padding: 30px 16px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 20px 12px;
+  }
 `;
 
 export const PageTitle = styled.h1`
@@ -17,6 +25,14 @@ export const PageTitle = styled.h1`
   color: ${props => props.theme.colors.text};
   text-align: center;
   margin-bottom: 5px;
+  
+  @media (max-width: 768px) {
+    font-size: 26px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 22px;
+  }
 `;
 
 export const PageSubtitle = styled.p`
@@ -24,6 +40,11 @@ export const PageSubtitle = styled.p`
   color: ${props => props.theme.colors.textLight};
   text-align: center;
   margin-bottom: 30px;
+  
+  @media (max-width: 768px) {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
 `;
 
 // ========== COMPONENTES DE NAVEGAÇÃO ==========
@@ -32,6 +53,21 @@ export const NavigationButtons = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 40px;
+  gap: 12px;
+  
+  @media (max-width: 768px) {
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    width: 100%;
+    
+    button {
+      width: 100%;
+    }
+  }
 `;
 
 export const BackButtonPlain = styled.button`
@@ -43,6 +79,13 @@ export const BackButtonPlain = styled.button`
   text-decoration: none;
   font-size: 15px;
   cursor: pointer;
+  gap: 4px;
+  
+  @media (max-width: 480px) {
+    font-size: 14px;
+    width: 100%;
+    justify-content: center;
+  }
   
   &:hover {
     color: ${props => props.theme.colors.primary};
@@ -60,9 +103,26 @@ export const ContinueButton = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  
+  @media (max-width: 768px) {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 12px 20px;
+  }
   
   &:hover {
     background-color: ${props => props.theme.colors.primaryDark};
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
   
   span {
@@ -81,8 +141,19 @@ export const FinalizeButton = styled(ContinueButton)`
 export const StepCounter = styled.div`
   flex: 1;
   text-align: center;
+  font-size: ${props => props.theme.fontSize.regular};
   color: ${props => props.theme.colors.textLight};
-  font-size: ${props => props.theme.fontSize.medium};
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    order: -1;
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
 `;
 
 export const BackButtonWithAvatar = styled.div`

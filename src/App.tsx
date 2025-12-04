@@ -13,6 +13,7 @@ import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
 import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
+import DebugLoginPage from './pages/DebugLoginPage';
 import { lightTheme, darkTheme } from './styles/theme';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
             <Route path="/contato" element={<ContactPage />} />
             <Route path="/sobre" element={<AboutPage />} />
             <Route path="/perfil" element={<ProfilePage />} />
+            <Route path="/debug-login" element={<DebugLoginPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>

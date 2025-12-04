@@ -6,6 +6,10 @@ const PageContainer = styled.div`
   margin: 0 auto;
   padding: 60px 20px;
   background-color: #f8f9fa;
+  
+  @media (max-width: 768px) {
+    padding: 40px 16px;
+  }
 `;
 
 const ContentGrid = styled.div`
@@ -15,9 +19,14 @@ const ContentGrid = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   
+  @media (max-width: 1024px) {
+    grid-template-columns: 350px 1fr;
+    gap: 40px;
+  }
+  
   @media (max-width: 968px) {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 30px;
   }
 `;
 

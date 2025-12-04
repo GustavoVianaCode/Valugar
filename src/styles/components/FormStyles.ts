@@ -3,6 +3,10 @@ import styled from 'styled-components';
 // ========== COMPONENTES DE FORMULÁRIO ==========
 export const ContentSection = styled.section`
   margin-bottom: 40px;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 30px;
+  }
 `;
 
 export const SectionTitle = styled.h2`
@@ -10,6 +14,14 @@ export const SectionTitle = styled.h2`
   color: ${props => props.theme.colors.text};
   text-align: center;
   margin-bottom: 10px;
+  
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 `;
 
 export const SectionSubtitle = styled.p`
@@ -17,6 +29,11 @@ export const SectionSubtitle = styled.p`
   color: ${props => props.theme.colors.textLight};
   text-align: center;
   margin-bottom: 30px;
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
 `;
 
 export const FormSection = styled.div`
@@ -27,12 +44,25 @@ export const FormSectionTitle = styled.h3`
   font-size: ${props => props.theme.fontSize?.large || '20px'};
   margin-bottom: 5px;
   color: ${props => props.theme.colors.text};
+  
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 export const FormSectionSubtitle = styled.p`
   font-size: ${props => props.theme.fontSize?.medium || '14px'};
   color: ${props => props.theme.colors.textLight};
   margin-bottom: 20px;
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
 `;
 
 export const InputGroup = styled.div`
@@ -55,6 +85,11 @@ export const TextInput = styled.input`
   border-radius: ${props => props.theme.borderRadius.small || props.theme.borderRadius.sm || '4px'};
   font-size: ${props => props.theme.fontSize?.regular || '16px'};
   
+  @media (max-width: 480px) {
+    padding: 8px 12px;
+    font-size: 15px;
+  }
+  
   &::placeholder {
     color: #aaa;
   }
@@ -73,6 +108,12 @@ export const TextArea = styled.textarea`
   font-size: ${props => props.theme.fontSize?.regular || '16px'};
   min-height: 100px;
   resize: vertical;
+  
+  @media (max-width: 480px) {
+    padding: 8px 12px;
+    font-size: 15px;
+    min-height: 80px;
+  }
   
   &::placeholder {
     color: #aaa;
@@ -96,6 +137,11 @@ export const SelectInput = styled.select`
   background-repeat: no-repeat;
   background-size: 20px;
   
+  @media (max-width: 480px) {
+    padding: 8px 12px;
+    font-size: 15px;
+  }
+  
   &:focus {
     border-color: ${props => props.theme.colors.primary};
     outline: none;
@@ -109,6 +155,7 @@ export const InputGrid = styled.div`
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
 `;
 
@@ -153,6 +200,10 @@ export const AccordionHeader = styled.div`
   align-items: center;
   cursor: pointer;
   background-color: ${props => props.theme.colors.backgroundAlt || props.theme.colors.backgroundLight || '#f9f9f9'};
+  
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
 `;
 
 export const AccordionTitle = styled.div`

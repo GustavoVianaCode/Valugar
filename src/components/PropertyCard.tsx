@@ -14,6 +14,12 @@ const Card = styled.div`
     transform: translateY(-4px);
     box-shadow: 0 4px 16px rgba(0,0,0,0.15);
   }
+  
+  @media (max-width: 768px) {
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
 `;
 
 const CardLink = styled(Link)`
@@ -36,6 +42,10 @@ const ImageContainer = styled.div`
 
 const CardContent = styled.div`
   padding: 15px;
+  
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
 `;
 
 const Title = styled.h3`
@@ -63,6 +73,12 @@ const Features = styled.div`
   font-size: 13px;
   color: #666;
   margin: 10px 0;
+  flex-wrap: wrap;
+  
+  @media (max-width: 480px) {
+    gap: 10px;
+    font-size: 12px;
+  }
 `;
 
 const Feature = styled.div`

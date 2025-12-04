@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const StyledHeader = styled.header<{ isTransparent: boolean }>`
@@ -60,6 +61,125 @@ const Nav = styled.nav`
   }
 `;
 
+const MobileMenuButton = styled.button<{ isTransparent: boolean }>`
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  
+  span {
+    width: 25px;
+    height: 3px;
+    background: ${props => props.isTransparent ? 'white' : '#0090C1'};
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  
+  @media (max-width: 768px) {
+    display: flex;
+  }
+`;
+
+const MobileNav = styled.div<{ isOpen: boolean; isTransparent: boolean }>`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100vh;
+  background: white;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+  transform: translateX(${props => props.isOpen ? '0' : '100%'});
+  transition: transform 0.3s ease;
+  z-index: 2000;
+  padding: 80px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
+const MobileOverlay = styled.div<{ isOpen: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  opacity: ${props => props.isOpen ? '1' : '0'};
+  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  transition: all 0.3s;
+  z-index: 1999;
+  
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
+const MobileNavLink = styled(Link)`
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  font-family: 'Poppins', sans-serif;
+  
+  &:hover {
+    color: #0090C1;
+  }
+`;
+
+const MobileButtonGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+`;
+
+const MobileButton = styled(Link)<{ primary?: boolean }>`
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.2s;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  border: ${props => props.primary ? 'none' : '2px solid #0090C1'};
+  background: ${props => props.primary ? '#0090C1' : 'transparent'};
+  color: ${props => props.primary ? 'white' : '#0090C1'};
+  
+  &:hover {
+    background: ${props => props.primary ? '#00b8e6' : 'rgba(0,144,193,0.1)'};
+  }
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  color: #333;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    color: #0090C1;
+  }
+`;
+
 const NavLink = styled(Link)<{ isTransparent: boolean }>`
   color: ${props => props.isTransparent ? 'white' : '#333'};
   text-decoration: none;
@@ -112,28 +232,58 @@ const EntrarButton = styled(Link)<{ primary?: boolean; isTransparent: boolean }>
 const Header = () => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <StyledHeader isTransparent={isHomePage}>
-      <HeaderContainer>
-        <Logo to="/" isTransparent={isHomePage}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-          </svg>
-          <span>Valugar</span>
-        </Logo>
-        <Nav>
-          <NavLink to="/buscar" isTransparent={isHomePage}>Buscar imóvel</NavLink>
-          <NavLink to="/anunciar" isTransparent={isHomePage}>Anunciar imóvel</NavLink>
-          <NavLink to="/sobre" isTransparent={isHomePage}>Sobre nós</NavLink>
-          <NavLink to="/contato" isTransparent={isHomePage}>Contato</NavLink>
-          <ButtonGroup>
-            <EntrarButton to="/cadastrar" isTransparent={isHomePage}>Cadastrar</EntrarButton>
-            <EntrarButton to="/entrar" primary isTransparent={isHomePage}>Entrar</EntrarButton>
-          </ButtonGroup>
-        </Nav>
-      </HeaderContainer>
-    </StyledHeader>
+    <>
+      <MobileOverlay isOpen={mobileMenuOpen} onClick={closeMobileMenu} />
+      <StyledHeader isTransparent={isHomePage}>
+        <HeaderContainer>
+          <Logo to="/" isTransparent={isHomePage}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <span>Valugar</span>
+          </Logo>
+          
+          <Nav>
+            <NavLink to="/buscar" isTransparent={isHomePage}>Buscar imóvel</NavLink>
+            <NavLink to="/anunciar" isTransparent={isHomePage}>Anunciar imóvel</NavLink>
+            <NavLink to="/sobre" isTransparent={isHomePage}>Sobre nós</NavLink>
+            <NavLink to="/contato" isTransparent={isHomePage}>Contato</NavLink>
+            <ButtonGroup>
+              <EntrarButton to="/cadastrar" isTransparent={isHomePage}>Cadastrar</EntrarButton>
+              <EntrarButton to="/entrar" primary isTransparent={isHomePage}>Entrar</EntrarButton>
+            </ButtonGroup>
+          </Nav>
+
+          <MobileMenuButton 
+            isTransparent={isHomePage}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </MobileMenuButton>
+        </HeaderContainer>
+      </StyledHeader>
+
+      <MobileNav isOpen={mobileMenuOpen} isTransparent={isHomePage}>
+        <CloseButton onClick={closeMobileMenu}>×</CloseButton>
+        <MobileNavLink to="/buscar" onClick={closeMobileMenu}>Buscar imóvel</MobileNavLink>
+        <MobileNavLink to="/anunciar" onClick={closeMobileMenu}>Anunciar imóvel</MobileNavLink>
+        <MobileNavLink to="/sobre" onClick={closeMobileMenu}>Sobre nós</MobileNavLink>
+        <MobileNavLink to="/contato" onClick={closeMobileMenu}>Contato</MobileNavLink>
+        <MobileButtonGroup>
+          <MobileButton to="/cadastrar" onClick={closeMobileMenu}>Cadastrar</MobileButton>
+          <MobileButton to="/entrar" primary onClick={closeMobileMenu}>Entrar</MobileButton>
+        </MobileButtonGroup>
+      </MobileNav>
+    </>
   );
 };
 
